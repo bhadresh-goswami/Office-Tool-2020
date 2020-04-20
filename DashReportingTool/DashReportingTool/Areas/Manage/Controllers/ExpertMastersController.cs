@@ -52,15 +52,24 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ExpertId,ExpertName,ExpertPassword,ExpertEmailid,ExpertMobile,Designation,RefLocationId")] ExpertMaster expertMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.ExpertMasters.Add(expertMaster);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.ExpertMasters.Add(expertMaster);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.RefLocationId = new SelectList(db.LocationMasters, "LocationId", "LocationName", expertMaster.RefLocationId);
+                return View(expertMaster);
+            }
+            catch (Exception ex)
+            {
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-
-            ViewBag.RefLocationId = new SelectList(db.LocationMasters, "LocationId", "LocationName", expertMaster.RefLocationId);
-            return View(expertMaster);
+         
         }
 
         // GET: Manage/ExpertMasters/Edit/5
@@ -86,14 +95,23 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ExpertId,ExpertName,ExpertPassword,ExpertEmailid,ExpertMobile,Designation,RefLocationId")] ExpertMaster expertMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(expertMaster).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(expertMaster).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.RefLocationId = new SelectList(db.LocationMasters, "LocationId", "LocationName", expertMaster.RefLocationId);
+                return View(expertMaster);
+            }
+            catch (Exception ex)
+            {
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-            ViewBag.RefLocationId = new SelectList(db.LocationMasters, "LocationId", "LocationName", expertMaster.RefLocationId);
-            return View(expertMaster);
+            
         }
 
         // GET: Manage/ExpertMasters/Delete/5

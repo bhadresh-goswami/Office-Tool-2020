@@ -28,9 +28,10 @@
         <AssociationConnector Association="dbReportingModel.FK__Candidate__RefBa__59063A47" />
         <AssociationConnector Association="dbReportingModel.FK__SessionMa__RefBa__5BE2A6F2" />
         <EntityTypeShape EntityType="dbReportingModel.TaskTitleMaster" Width="1.5" PointX="3.75" PointY="12.625" />
-        <EntityTypeShape EntityType="dbReportingModel.TaskMaster" Width="1.5" PointX="8" PointY="1.375" />
+        <EntityTypeShape EntityType="dbReportingModel.TaskMaster" Width="1.5" PointX="8" PointY="1.125" />
         <AssociationConnector Association="dbReportingModel.FK__TaskMaste__RefAs__628FA481" />
         <AssociationConnector Association="dbReportingModel.FK__TaskMaste__RefEx__60A75C0F" />
+        <AssociationConnector Association="dbReportingModel.FK__TaskMaste__RefSt__6383C8BA" />
         <AssociationConnector Association="dbReportingModel.FK__TaskMaste__RefTa__619B8048" />
       </Diagram>
     </edmx:Diagrams>

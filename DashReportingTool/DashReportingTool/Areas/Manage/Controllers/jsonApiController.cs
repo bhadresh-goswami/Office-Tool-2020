@@ -81,9 +81,12 @@ on b.BatchId equals s.RefBatchTitle
 
         public JsonResult getPendingTaskFeeds(int id)
         {
-          
-            var PT = db.TaskMasters.Where(a => a.RefExpertName == id && !a.TaskDone && (a.AssignedTask == null || a.AssignedTask==false)).OrderByDescending(a => a.TaskDate).OrderByDescending(a => a.TaskStartTime).ToList();
-          
+
+            //var PT = db.TaskMasters.Where(a => a.RefExpertName == id && !a.TaskDone && (a.AssignedTask == null || a.AssignedTask == false)).OrderByDescending(a => a.TaskDate).OrderByDescending(a => a.TaskStartTime).ToList();
+            var PT = db.TaskMasters.Where(a => a.RefExpertName == id && a.RefStatusTitle == 2 && 
+            (a.AssignedTask == null || a.AssignedTask == false))
+                .OrderByDescending(a => a.TaskDate)
+                .OrderByDescending(a => a.TaskStartTime).ToList();
             return Json(PT.Select(a => new
             {
                 a.AssignedTask,
@@ -182,12 +185,169 @@ on b.BatchId equals s.RefBatchTitle
             }
             catch (Exception ex)
             {
-                var data =new Dictionary<string, string>();
+                var data = new Dictionary<string, string>();
                 data["TaskTitle"] = "Server Side Error";
 
                 data["TaskDetails"] = "Server Not Responding Please Try after sometime!";
-                return Json(data,JsonRequestBehavior.AllowGet);
+                return Json(data, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public string StartTask(int id, int userid)
+        {
+            try
+            {
+                var anyPending = db.TaskMasters.Where(a => a.RefExpertName == userid && a.TaskDone == false && a.AssignedTask == false && a.RefStatusTitle==2).ToList().Count;
+                if (anyPending > 0)
+                {
+                    return "Complete Pending Task First!";
+                }
+
+                var data = db.TaskMasters.SingleOrDefault(a => a.TaskId == id);
+                //TimeSpan t = (TimeSpan)data.TaskStartTime;
+                //DateTime d = DateTime.Now;
+                //DateTime date1 = new DateTime(d.Year, d.Month, d.Day, t.Hours, t.Minutes, t.Seconds);
+                //DateTime date2 = DateTime.Now;
+                //TimeSpan ts = date2 - date1;
+
+                //data.TimeTaken = ts.Minutes;
+                //data.TaskEndTime = DateTime.Now.TimeOfDay;
+                data.RefStatusTitle = 2;
+                data.TaskStartTime = DateTime.Now.TimeOfDay;
+                data.IsStartedTask = true;
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+            return "Task Started!";
+        }
+
+        public JsonResult UpdatePassword(string oldp, string newp, int userid)
+        {
+            var dict = new Dictionary<string, string>();
+            try
+            {
+                var expert = db.ExpertMasters.SingleOrDefault(a => a.ExpertId == userid && a.ExpertPassword == oldp);
+                if (expert != null)
+                {
+                    expert.ExpertPassword = newp;
+                    db.SaveChanges();
+                    dict["msg"] = "Changed Password";
+                    return Json(dict, JsonRequestBehavior.AllowGet);
+
+                }
+                dict["msg"] = "User Details Not Found!";
+            }
+            catch (Exception ex)
+            {
+
+                dict["msg"] = ex.Message;
+            }
+            return Json(dict, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public JsonResult UpdateTaskStatus(int id, int sid, int uid)
+        {
+            var dict = new Dictionary<string, string>();
+            var task = db.TaskMasters.Find(id);
+            
+            var tasks = db.TaskMasters.Where(a => a.RefExpertName == uid && a.RefStatusTitle == 2);
+            int reny = tasks.ToList().Count;
+            try
+            {
+                var st = db.StatusMasters.Find(sid);
+                if (sid == 5)
+                {
+                    task.RefStatusTitle = sid;
+                    task.IsStartedTask = false;
+                    task.TaskDone = false;
+                    task.TimeTaken = 0;
+                    db.SaveChanges();
+                    //reassigned
+                }
+                else if (sid == 2)
+                {
+                    if (reny > 0)
+                    {
+                        dict["msg"] = "Some task is running you can not complete this task now!";
+                        return Json(dict, JsonRequestBehavior.AllowGet);
+
+                    }
+                    task.RefStatusTitle = sid;
+                    task.IsStartedTask = true;
+                    task.TaskDone = false;
+                    task.TimeTaken = 0;
+                    db.SaveChanges();
+                    //reassigned
+                }
+                else if (sid == 3)
+                {
+
+                    task.RefStatusTitle = sid;
+                    task.IsStartedTask = false;
+                    task.TaskDone = false;
+                    TimeSpan stime = (TimeSpan)task.TaskStartTime;
+                    TimeSpan etime = DateTime.Now.TimeOfDay;
+                    TimeSpan t = etime.Subtract(stime);
+                    int hrToM = t.Hours * 60;
+                    int tmin = t.Minutes + hrToM;
+                    task.TimeTaken = tmin;
+                    task.TaskEndTime = DateTime.Now.TimeOfDay;
+                    task.RefStatusTitle = sid;
+                    db.SaveChanges();
+                    //hold
+                }
+                else if (sid == 1)
+                {
+                   if(task.RefStatusTitle == 3 || task.RefStatusTitle == 2)
+                    {
+                        
+                        task.IsStartedTask = true;
+                        task.TaskDone = true;
+                        TimeSpan stime = (TimeSpan)task.TaskStartTime;
+                        TimeSpan etime = DateTime.Now.TimeOfDay;
+                        TimeSpan t = etime.Subtract(stime);
+                        
+                        int hrToM = t.Hours * 60;
+                        int tmin = t.Minutes + hrToM;
+                        if (task.RefStatusTitle == 3)
+                        {
+                            tmin -= (int)task.TimeTaken;
+                        }
+                        task.RefStatusTitle = sid;
+                        task.TimeTaken = tmin;
+                        task.RefStatusTitle = sid;
+                        task.TaskEndTime = DateTime.Now.TimeOfDay;
+
+                        db.SaveChanges();
+                        dict["msg"] = "Status Changed to " + st.StatusTitle;
+                        return Json(dict, JsonRequestBehavior.AllowGet);
+
+                    }
+                    if (reny > 0)
+                        {
+                            dict["msg"] = "Some task is running you can not complete this task now!";
+                            return Json(dict, JsonRequestBehavior.AllowGet);
+
+                        }
+                   
+                   
+                    //completed
+                }
+                dict["msg"] = "Status Changed to " + st.StatusTitle;
+            }
+            catch (Exception ex)
+            {
+                dict["msg"] = ex.Message;
+                return Json(dict, JsonRequestBehavior.AllowGet);
+
+
+            }
+            return Json(dict, JsonRequestBehavior.AllowGet);
+
         }
 
     }

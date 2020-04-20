@@ -7,10 +7,12 @@
 
 <h2>Edit</h2>
 
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>TaskMaster</h4>
         <hr />
@@ -102,3 +104,34 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script>
+    // Wait for the DOM to be ready
+    $(function () {
+        // Initialize form validation on the registration form.
+        // It has the name attribute "registration"
+        $("#form1").validate({
+            // Specify validation rules
+            rules: {
+                // The key name on the left side is the name attribute
+                // of an input field. Validation rules are defined
+                // on the right side
+                TaskTitle: {
+                    required: true,
+                    minlength: 3
+                }
+            },
+            // Specify validation error messages
+            messages: {
+                TaskTitle: {
+                    required: "Please provide a Task Title!",
+                    minlength: "It should be at least 3 characters long!"
+                }
+            },
+            // Make sure the form is submitted to the destination defined
+            // in the "action" attribute of the form when valid
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    });
+</script>

@@ -28,5 +28,6 @@ namespace DashReportingTool.Areas.Manage.Controllers
             var data = db.ExpertMasters.Where(a => a.Designation.ToLower() != "admin").ToList();
             return Json(data.Select(a => new { a.ExpertName, a.ExpertEmailid, a.ExpertMobile, TotalBatch = a.BatchMasters.ToList().Count }),JsonRequestBehavior.AllowGet);
         }
+
     }
 }

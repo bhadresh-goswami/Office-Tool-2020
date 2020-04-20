@@ -106,6 +106,7 @@
     <Property Name="AssignedTask" Type="bit" />
     <Property Name="IsStartedTask" Type="bit" />
     <Property Name="DeadLine" Type="date" />
+    <Property Name="RefStatusTitle" Type="int" />
   </EntityType>
   <EntityType Name="TaskTitleMaster">
     <Key>
@@ -262,6 +263,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__TaskMaste__RefSt__6383C8BA">
+    <End Role="StatusMaster" Type="Self.StatusMaster" Multiplicity="0..1" />
+    <End Role="TaskMaster" Type="Self.TaskMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusMaster">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="TaskMaster">
+        <PropertyRef Name="RefStatusTitle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__TaskMaste__RefTa__619B8048">
     <End Role="TaskTitleMaster" Type="Self.TaskTitleMaster" Multiplicity="1" />
     <End Role="TaskMaster" Type="Self.TaskMaster" Multiplicity="*" />
@@ -354,6 +367,10 @@
     </AssociationSet>
     <AssociationSet Name="FK__TaskMaste__RefEx__60A75C0F" Association="Self.FK__TaskMaste__RefEx__60A75C0F">
       <End Role="ExpertMaster" EntitySet="ExpertMaster" />
+      <End Role="TaskMaster" EntitySet="TaskMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TaskMaste__RefSt__6383C8BA" Association="Self.FK__TaskMaste__RefSt__6383C8BA">
+      <End Role="StatusMaster" EntitySet="StatusMaster" />
       <End Role="TaskMaster" EntitySet="TaskMaster" />
     </AssociationSet>
     <AssociationSet Name="FK__TaskMaste__RefTa__619B8048" Association="Self.FK__TaskMaste__RefTa__619B8048">

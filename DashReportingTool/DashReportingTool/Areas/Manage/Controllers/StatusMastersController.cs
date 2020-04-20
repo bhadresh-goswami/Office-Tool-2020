@@ -48,14 +48,25 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StatusId,StatusTitle")] StatusMaster statusMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.StatusMasters.Add(statusMaster);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.StatusMasters.Add(statusMaster);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View(statusMaster);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
 
-            return View(statusMaster);
+            
         }
 
         // GET: Manage/StatusMasters/Edit/5
@@ -80,13 +91,25 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StatusId,StatusTitle")] StatusMaster statusMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(statusMaster).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(statusMaster).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(statusMaster);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-            return View(statusMaster);
+
+
+          
         }
 
         // GET: Manage/StatusMasters/Delete/5

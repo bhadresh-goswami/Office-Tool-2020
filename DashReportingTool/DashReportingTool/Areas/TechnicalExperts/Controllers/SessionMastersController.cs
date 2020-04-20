@@ -59,23 +59,32 @@ namespace DashReportingTool.Areas.TechnicalExperts.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "SessionId,SessionTitle,SessionTopic,SessionDate,RefBatchTitle,PresentCandidates")] SessionMaster sessionMaster, string[] list)
         {
-            //if (ModelState.IsValid)
-            //{
-            string slist = "";
-            for (int i = 0; i < list.Length; i++)
+            try
             {
-                slist += list[i]+",";
+                //if (ModelState.IsValid)
+                //{
+                string slist = "";
+                for (int i = 0; i < list.Length; i++)
+                {
+                    slist += list[i] + ",";
+                }
+                slist = slist.Remove(slist.Length - 1, 1);
+
+                sessionMaster.PresentCandidates = slist;
+                db.SessionMasters.Add(sessionMaster);
+                db.SaveChanges();
+                return RedirectToAction("Index", "SessionMasters", new { @id = sessionMaster.RefBatchTitle });
+                //}
+
+                //ViewBag.RefBatchTitle = new SelectList(db.BatchMasters, "BatchId", "BatchName", sessionMaster.RefBatchTitle);
+                //return View(sessionMaster);
             }
-            slist = slist.Remove(slist.Length - 1, 1);
-
-            sessionMaster.PresentCandidates = slist;
-            db.SessionMasters.Add(sessionMaster);
-            db.SaveChanges();
-            return RedirectToAction("Index", "SessionMasters", new { @id = sessionMaster.RefBatchTitle });
-            //}
-
-            //ViewBag.RefBatchTitle = new SelectList(db.BatchMasters, "BatchId", "BatchName", sessionMaster.RefBatchTitle);
-            //return View(sessionMaster);
+            catch (Exception ex)
+            {
+                TempData["err"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+           
         }
 
         // GET: TechnicalExperts/SessionMasters/Edit/5

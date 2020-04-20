@@ -111,6 +111,7 @@
           <Property Name="AssignedTask" Type="bit" />
           <Property Name="IsStartedTask" Type="bit" />
           <Property Name="DeadLine" Type="date" />
+          <Property Name="RefStatusTitle" Type="int" />
         </EntityType>
         <EntityType Name="TaskTitleMaster">
           <Key>
@@ -267,6 +268,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__TaskMaste__RefSt__6383C8BA">
+          <End Role="StatusMaster" Type="Self.StatusMaster" Multiplicity="0..1" />
+          <End Role="TaskMaster" Type="Self.TaskMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusMaster">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="TaskMaster">
+              <PropertyRef Name="RefStatusTitle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__TaskMaste__RefTa__619B8048">
           <End Role="TaskTitleMaster" Type="Self.TaskTitleMaster" Multiplicity="1" />
           <End Role="TaskMaster" Type="Self.TaskMaster" Multiplicity="*" />
@@ -361,6 +374,10 @@
             <End Role="ExpertMaster" EntitySet="ExpertMaster" />
             <End Role="TaskMaster" EntitySet="TaskMaster" />
           </AssociationSet>
+          <AssociationSet Name="FK__TaskMaste__RefSt__6383C8BA" Association="Self.FK__TaskMaste__RefSt__6383C8BA">
+            <End Role="StatusMaster" EntitySet="StatusMaster" />
+            <End Role="TaskMaster" EntitySet="TaskMaster" />
+          </AssociationSet>
           <AssociationSet Name="FK__TaskMaste__RefTa__619B8048" Association="Self.FK__TaskMaste__RefTa__619B8048">
             <End Role="TaskTitleMaster" EntitySet="TaskTitleMaster" />
             <End Role="TaskMaster" EntitySet="TaskMaster" />
@@ -439,7 +456,7 @@
           <NavigationProperty Name="BatchMasters" Relationship="dbReportingModel.FK__BatchMast__RefEx__5441852A" FromRole="ExpertMaster" ToRole="BatchMaster" />
           <NavigationProperty Name="TaskMasters" Relationship="dbReportingModel.FK__TaskMaste__RefAs__628FA481" FromRole="ExpertMaster" ToRole="TaskMaster" />
           <NavigationProperty Name="TaskMasters1" Relationship="dbReportingModel.FK__TaskMaste__RefEx__60A75C0F" FromRole="ExpertMaster" ToRole="TaskMaster" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="LocationMaster">
           <Key>
             <PropertyRef Name="LocationId" />
@@ -468,6 +485,7 @@
           <Property Name="StatusTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CandidateMasters" Relationship="Self.FK__Candidate__RefCa__49C3F6B7" FromRole="StatusMaster" ToRole="CandidateMaster" />
           <NavigationProperty Name="BatchMasters" Relationship="dbReportingModel.FK__BatchMast__Batch__5535A963" FromRole="StatusMaster" ToRole="BatchMaster" />
+          <NavigationProperty Name="TaskMasters" Relationship="dbReportingModel.FK__TaskMaste__RefSt__6383C8BA" FromRole="StatusMaster" ToRole="TaskMaster" />
         </EntityType>
         <EntityType Name="TechExpertMaster">
           <Key>
@@ -638,6 +656,10 @@
             <End Role="ExpertMaster" EntitySet="ExpertMasters" />
             <End Role="TaskMaster" EntitySet="TaskMasters" />
           </AssociationSet>
+          <AssociationSet Name="FK__TaskMaste__RefSt__6383C8BA" Association="dbReportingModel.FK__TaskMaste__RefSt__6383C8BA">
+            <End Role="StatusMaster" EntitySet="StatusMasters" />
+            <End Role="TaskMaster" EntitySet="TaskMasters" />
+          </AssociationSet>
           <AssociationSet Name="FK__TaskMaste__RefTa__619B8048" Association="dbReportingModel.FK__TaskMaste__RefTa__619B8048">
             <End Role="TaskTitleMaster" EntitySet="TaskTitleMasters" />
             <End Role="TaskMaster" EntitySet="TaskMasters" />
@@ -735,8 +757,10 @@
           <Property Name="AssignedTask" Type="Boolean" />
           <Property Name="IsStartedTask" Type="Boolean" />
           <Property Name="DeadLine" Type="DateTime" Precision="0" />
+          <Property Name="RefStatusTitle" Type="Int32" />
           <NavigationProperty Name="ExpertMaster" Relationship="dbReportingModel.FK__TaskMaste__RefAs__628FA481" FromRole="TaskMaster" ToRole="ExpertMaster" />
           <NavigationProperty Name="ExpertMaster1" Relationship="dbReportingModel.FK__TaskMaste__RefEx__60A75C0F" FromRole="TaskMaster" ToRole="ExpertMaster" />
+          <NavigationProperty Name="StatusMaster" Relationship="dbReportingModel.FK__TaskMaste__RefSt__6383C8BA" FromRole="TaskMaster" ToRole="StatusMaster" />
           <NavigationProperty Name="TaskTitleMaster" Relationship="dbReportingModel.FK__TaskMaste__RefTa__619B8048" FromRole="TaskMaster" ToRole="TaskTitleMaster" />
         </EntityType>
         <Association Name="FK__TaskMaste__RefAs__628FA481">
@@ -760,6 +784,18 @@
             </Principal>
             <Dependent Role="TaskMaster">
               <PropertyRef Name="RefExpertName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TaskMaste__RefSt__6383C8BA">
+          <End Type="dbReportingModel.StatusMaster" Role="StatusMaster" Multiplicity="0..1" />
+          <End Type="dbReportingModel.TaskMaster" Role="TaskMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusMaster">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="TaskMaster">
+              <PropertyRef Name="RefStatusTitle" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -907,6 +943,7 @@
           <EntitySetMapping Name="TaskMasters">
             <EntityTypeMapping TypeName="dbReportingModel.TaskMaster">
               <MappingFragment StoreEntitySet="TaskMaster">
+                <ScalarProperty Name="RefStatusTitle" ColumnName="RefStatusTitle" />
                 <ScalarProperty Name="DeadLine" ColumnName="DeadLine" />
                 <ScalarProperty Name="IsStartedTask" ColumnName="IsStartedTask" />
                 <ScalarProperty Name="AssignedTask" ColumnName="AssignedTask" />

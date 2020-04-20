@@ -53,16 +53,25 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CCId,RefCandidateTitle,RefCourseTitle")] CandidateCourseMaster candidateCourseMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.CandidateCourseMasters.Add(candidateCourseMaster);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.CandidateCourseMasters.Add(candidateCourseMaster);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.RefCandidateTitle = new SelectList(db.CandidateMasters, "CandidateId", "CandidateName", candidateCourseMaster.RefCandidateTitle);
+                ViewBag.RefCourseTitle = new SelectList(db.CourseMasters, "CourseId", "CourseTitle", candidateCourseMaster.RefCourseTitle);
+                return View(candidateCourseMaster);
+            }
+            catch (Exception ex)
+            {
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-
-            ViewBag.RefCandidateTitle = new SelectList(db.CandidateMasters, "CandidateId", "CandidateName", candidateCourseMaster.RefCandidateTitle);
-            ViewBag.RefCourseTitle = new SelectList(db.CourseMasters, "CourseId", "CourseTitle", candidateCourseMaster.RefCourseTitle);
-            return View(candidateCourseMaster);
+           
         }
 
         // GET: Manage/CandidateCourseMasters/Edit/5
@@ -89,15 +98,24 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CCId,RefCandidateTitle,RefCourseTitle")] CandidateCourseMaster candidateCourseMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(candidateCourseMaster).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(candidateCourseMaster).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.RefCandidateTitle = new SelectList(db.CandidateMasters, "CandidateId", "CandidateName", candidateCourseMaster.RefCandidateTitle);
+                ViewBag.RefCourseTitle = new SelectList(db.CourseMasters, "CourseId", "CourseTitle", candidateCourseMaster.RefCourseTitle);
+                return View(candidateCourseMaster);
+            }
+            catch (Exception ex)
+            {
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-            ViewBag.RefCandidateTitle = new SelectList(db.CandidateMasters, "CandidateId", "CandidateName", candidateCourseMaster.RefCandidateTitle);
-            ViewBag.RefCourseTitle = new SelectList(db.CourseMasters, "CourseId", "CourseTitle", candidateCourseMaster.RefCourseTitle);
-            return View(candidateCourseMaster);
+           
         }
 
         // GET: Manage/CandidateCourseMasters/Delete/5

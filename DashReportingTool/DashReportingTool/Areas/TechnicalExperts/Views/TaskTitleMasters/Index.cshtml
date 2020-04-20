@@ -1,16 +1,20 @@
 ﻿@model IEnumerable<DashReportingTool.Models.TaskTitleMaster>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List Task Titles";
     Layout = "~/Views/Shared/_defaultLayout.cshtml";
+
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="float-right">
+    @Html.ActionLink("Create New", "Create", null, htmlAttributes: new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+@if (ViewBag.info != null)
+    {
+<div class="alert alert-warning">You have 1 task pending to close. Please Complete that task first before you create the new task!</div>
+    }
+<table class="table dttable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.TaskTitle)
@@ -18,17 +22,18 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskTitle)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TaskTitleId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TaskTitleId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TaskTitleId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TaskTitle)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TaskTitleId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.TaskTitleId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TaskTitleId })
+            </td>
+        </tr>
+    }
 
 </table>

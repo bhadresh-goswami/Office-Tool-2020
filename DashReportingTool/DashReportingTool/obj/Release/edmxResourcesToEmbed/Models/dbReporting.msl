@@ -127,6 +127,7 @@
     <EntitySetMapping Name="TaskMasters">
       <EntityTypeMapping TypeName="dbReportingModel.TaskMaster">
         <MappingFragment StoreEntitySet="TaskMaster">
+          <ScalarProperty Name="RefStatusTitle" ColumnName="RefStatusTitle" />
           <ScalarProperty Name="DeadLine" ColumnName="DeadLine" />
           <ScalarProperty Name="IsStartedTask" ColumnName="IsStartedTask" />
           <ScalarProperty Name="AssignedTask" ColumnName="AssignedTask" />

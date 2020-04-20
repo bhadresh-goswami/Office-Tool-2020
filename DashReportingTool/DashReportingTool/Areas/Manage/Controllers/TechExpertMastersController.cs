@@ -53,16 +53,28 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TechExpertId,RefTechId,RefExpertId,TechExpertIsEnabled")] TechExpertMaster techExpertMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.TechExpertMasters.Add(techExpertMaster);
-                db.SaveChanges();
+
+                if (ModelState.IsValid)
+                {
+                    db.TechExpertMasters.Add(techExpertMaster);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.RefExpertId = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName", techExpertMaster.RefExpertId);
+                ViewBag.RefTechId = new SelectList(db.TechMasters, "TechId", "TechName", techExpertMaster.RefTechId);
+                return View(techExpertMaster);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RefExpertId = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName", techExpertMaster.RefExpertId);
-            ViewBag.RefTechId = new SelectList(db.TechMasters, "TechId", "TechName", techExpertMaster.RefTechId);
-            return View(techExpertMaster);
+
         }
 
         // GET: Manage/TechExpertMasters/Edit/5
@@ -89,15 +101,26 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TechExpertId,RefTechId,RefExpertId,TechExpertIsEnabled")] TechExpertMaster techExpertMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(techExpertMaster).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(techExpertMaster).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.RefExpertId = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName", techExpertMaster.RefExpertId);
+                ViewBag.RefTechId = new SelectList(db.TechMasters, "TechId", "TechName", techExpertMaster.RefTechId);
+                return View(techExpertMaster);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-            ViewBag.RefExpertId = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName", techExpertMaster.RefExpertId);
-            ViewBag.RefTechId = new SelectList(db.TechMasters, "TechId", "TechName", techExpertMaster.RefTechId);
-            return View(techExpertMaster);
+
+           
         }
 
         // GET: Manage/TechExpertMasters/Delete/5

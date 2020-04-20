@@ -52,16 +52,25 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BatchId,BatchName,RefExpertName,StartTime,EndTime,StartDate,CompletedDate,BatchStatus,Technology")] BatchMaster batchMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.BatchMasters.Add(batchMaster);
-                db.SaveChanges();
+
+                if (ModelState.IsValid)
+                {
+                    db.BatchMasters.Add(batchMaster);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.BatchStatus = new SelectList(db.StatusMasters, "StatusId", "StatusTitle", batchMaster.BatchStatus);
+                ViewBag.RefExpertName = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName", batchMaster.RefExpertName);
+                return View(batchMaster);
+            }
+            catch (Exception ex)
+            {
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-
-            ViewBag.BatchStatus = new SelectList(db.StatusMasters, "StatusId", "StatusTitle", batchMaster.BatchStatus);
-            ViewBag.RefExpertName = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName", batchMaster.RefExpertName);
-            return View(batchMaster);
         }
 
         // GET: Manage/BatchMasters/Edit/5
@@ -88,15 +97,24 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "BatchId,BatchName,RefExpertName,StartTime,EndTime,StartDate,CompletedDate,BatchStatus,Technology")] BatchMaster batchMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(batchMaster).State = EntityState.Modified;
-                db.SaveChanges();
+
+                if (ModelState.IsValid)
+                {
+                    db.Entry(batchMaster).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.BatchStatus = new SelectList(db.StatusMasters, "StatusId", "StatusTitle", batchMaster.BatchStatus);
+                ViewBag.RefExpertName = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName", batchMaster.RefExpertName);
+                return View(batchMaster);
+            }
+            catch (Exception ex)
+            {
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-            ViewBag.BatchStatus = new SelectList(db.StatusMasters, "StatusId", "StatusTitle", batchMaster.BatchStatus);
-            ViewBag.RefExpertName = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName", batchMaster.RefExpertName);
-            return View(batchMaster);
         }
 
         // GET: Manage/BatchMasters/Delete/5

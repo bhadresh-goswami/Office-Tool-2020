@@ -10,7 +10,7 @@ using DashReportingTool.Models;
 
 namespace DashReportingTool.Areas.TechnicalExperts.Controllers
 {
-    [AuthenticateFilter(Roles = "technical expert,team lead")]
+    [AuthenticateFilter(Roles = "technical expert,team lead,admin,manager")]
 
     public class TaskMastersController : Controller
     {
@@ -19,7 +19,9 @@ namespace DashReportingTool.Areas.TechnicalExperts.Controllers
         // GET: TechnicalExperts/TaskMasters
         public ActionResult Index()
         {
-            var taskMasters = db.TaskMasters.Include(t => t.ExpertMaster).Include(t => t.TaskTitleMaster);
+            ViewBag.userType = Session["UserType"].ToString();
+            int id = int.Parse(Session["UserId"].ToString());
+            var taskMasters = db.TaskMasters.Include(t => t.ExpertMaster).Include(t => t.TaskTitleMaster).Where(a=>a.RefExpertName==id);
             return View(taskMasters.ToList());
         }
 
@@ -42,10 +44,10 @@ namespace DashReportingTool.Areas.TechnicalExperts.Controllers
         public ActionResult Create()
         {
             int id = int.Parse(Session["UserId"].ToString());
-            var isanyTask = db.TaskMasters.Where(a => a.RefExpertName == id && !a.TaskDone);
+            var isanyTask = db.TaskMasters.Where(a => a.RefExpertName == id && !a.TaskDone && a.RefStatusTitle==2);
             if (isanyTask.ToList().Count>0)
             {
-                ViewBag.info = "Current Task is Pending, Please Complete it First!";
+                TempData["info"] = "Current Task is Pending, Please Complete it First!";
                 return RedirectToAction("Index");
             }
             ViewBag.RefExpertName = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName");
@@ -62,19 +64,28 @@ namespace DashReportingTool.Areas.TechnicalExperts.Controllers
         {
             //if (ModelState.IsValid)
             //{
-            
-            taskMaster.RefAssignedBy = int.Parse(Session["UserId"].ToString());
-            taskMaster.AssignedTask = false;
-            taskMaster.IsStartedTask = true;
-            taskMaster.DeadLine = DateTime.Now;
+            try
+            {
+                taskMaster.RefAssignedBy = int.Parse(Session["UserId"].ToString());
+                taskMaster.AssignedTask = false;
+                taskMaster.IsStartedTask = true;
+                taskMaster.DeadLine = DateTime.Now;
+                taskMaster.RefStatusTitle = 2;
+                taskMaster.RefExpertName = int.Parse(Session["UserId"].ToString());
+                taskMaster.TaskStartTime = DateTime.Now.TimeOfDay;
+                taskMaster.TaskEndTime = DateTime.Now.AddMinutes(taskMaster.EstimateTime).TimeOfDay;
+                taskMaster.TimeTaken = 0;
+                db.TaskMasters.Add(taskMaster);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
 
-            taskMaster.RefExpertName = int.Parse(Session["UserId"].ToString());
-            taskMaster.TaskStartTime = DateTime.Now.TimeOfDay;
-            taskMaster.TaskEndTime = DateTime.Now.AddMinutes(taskMaster.EstimateTime).TimeOfDay;
-            taskMaster.TimeTaken = 0;
-            db.TaskMasters.Add(taskMaster);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+                TempData["err"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+           
             //}
 
             //ViewBag.RefExpertName = new SelectList(db.ExpertMasters, "ExpertId", "ExpertName", taskMaster.RefExpertName);
@@ -129,19 +140,21 @@ namespace DashReportingTool.Areas.TechnicalExperts.Controllers
             {
                 return HttpNotFound();
             }
-            return View(taskMaster);
-        }
-
-        // POST: TechnicalExperts/TaskMasters/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            TaskMaster taskMaster = db.TaskMasters.Find(id);
             db.TaskMasters.Remove(taskMaster);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        //// POST: TechnicalExperts/TaskMasters/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    TaskMaster taskMaster = db.TaskMasters.Find(id);
+        //    db.TaskMasters.Remove(taskMaster);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

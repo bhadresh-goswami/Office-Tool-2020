@@ -12,7 +12,7 @@
 
 <script src="~/Content/timepicker/wickedpicker.min.js"></script>
 <link href="~/Content/timepicker/wickedpicker.min.css" rel="stylesheet" />
-@using (Html.BeginForm())
+@using (Html.BeginForm("","",FormMethod.Post,htmlAttributes:new { @id = "form1"}))
 {
     @Html.AntiForgeryToken()
 
@@ -41,7 +41,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.RefExpertName, "RefExpertName", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.DropDownList("RefExpertName", null, htmlAttributes: new { @class = "form-control" })
+            @Html.DropDownList("RefExpertName", null,"Select Expert Name", htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.RefExpertName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -123,3 +123,71 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+<script>
+    // Wait for the DOM to be ready
+    $(function () {
+        // Initialize form validation on the registration form.
+        // It has the name attribute "registration"
+        $("#form1").validate({
+            // Specify validation rules
+            rules: {
+                // The key name on the left side is the name attribute
+                // of an input field. Validation rules are defined
+                // on the right side
+                Technology: {
+                    required: true
+                },
+                 BatchName: {
+                    required: true,
+                    minlength: 5
+                },
+                  RefExpertName: {
+                    required: true
+                },
+                   StartTime: {
+                    required: true
+                },
+                    EndTime: {
+                    required: true
+                },
+                     StartDate: {
+                    required: true
+                },
+                      CompletedDate: {
+                    required: true
+                }
+            },
+            // Specify validation error messages
+            messages: {
+                
+                    Technology: {
+                    required: "Enter Technology Name!"
+                },
+                 BatchName: {
+                    required: "Enter Batch Name!",
+                    minlength: "Atleast 5 Char Long!"
+                },
+                  RefExpertName: {
+                    required: "Select Expert Name!"
+                },
+                   StartTime: {
+                    required: "Select Start Time!"
+                },
+                    EndTime: {
+                    required: "Select End Time!"
+                },
+                     StartDate: {
+                    required: "Select Start Date!"
+                },
+                      CompletedDate: {
+                    required: "Select Completed Date!"
+                }
+            },
+            // Make sure the form is submitted to the destination defined
+            // in the "action" attribute of the form when valid
+            submitHandler: function (form) {
+                form.submit();
+            }
+        });
+    });
+</script>

@@ -1,4 +1,5 @@
 ﻿@model List<Dictionary<string, List<DashReportingTool.Models.TaskMaster>>>
+    @using DashReportingTool.Models
 @{
     ViewBag.Title = "adminView";
     Layout = "~/Views/Shared/_defaultLayout.cshtml";
@@ -62,6 +63,10 @@
                         string k = keys.ToList()[0];
                         for (int i = 0; i < expertList[k].Count; i++)
                         {
+                            if(expertList[k][i].RefStatusTitle == 3)
+                            {
+                                continue;
+                            }
                             minutes += int.Parse(expertList[k][i].TimeTaken.ToString());
                         }
                         double hours = (minutes - minutes % 60) / 60;
@@ -76,27 +81,46 @@
                 <td colspan="5" class="hiddenRow">
                     <div class="accordian-body collapse p-3" id="demo_@di">
                         <div class="row">
-                            <table style="width:100%">
-                                <tr>
-                                    <th>Task Title</th>
-                                    <th>Start Time/ End Time</th>
-                                    <th>Estimate Time/ Spend Time</th>
-                                    <th style="width:30%">Details</th>
-                                </tr>
-                            @foreach (var item in expertList[k])
-                            {
-                                <tr>
-                                    <td>@item.TaskTitleMaster.TaskTitle</td>
-                                    <td>@item.TaskStartTime / @item.TaskEndTime</td>
-                                    <td>@item.EstimateTime / @item.TimeTaken</td>
-                                    <td>@item.TaskDetails</td>
-                                </tr>
-                                @*<div class="col-md-6" style="border-radius:5px; border:1px outset black;padding:5px">
-                                    <label style="font-weight:bold">Task:</label> @item.TaskTitleMaster.TaskTitle<br />
-                                    <label style="font-weight:bold">Estimate/Spend:</label> @item.EstimateTime / @item.TimeTaken<br />
-                                    <label style="font-weight:bold">Start/End:</label> @item.TaskStartTime / @item.TaskEndTime<br />
-                                </div>*@
-                            }
+                            <table style="width:100%" class="table table-responsive-sm" dttable>
+                                <thead>
+                                    <tr><th>Status</th>
+                                        <th>Task Title</th>
+                                        <th>Start Time/ End Time</th>
+                                        <th>Estimate Time/ Spend Time</th>
+                                        <th style="width:30%">Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in expertList[k])
+                                    {
+                                        <tr>
+                                            <td class="badge badge-dark">
+                                            @{ 
+                                                var db = new dbReportingEntities();
+                                                var s = db.StatusMasters.SingleOrDefault(a=>a.StatusId == item.RefStatusTitle);
+                                                if(s==null)
+                                                {
+                                                    <span>No Set</span>
+                                                }
+                                                else
+                                                {
+                                                    @s.StatusTitle
+                                                }
+                                            }
+                                            
+                                            </td>
+                                            <td>@item.TaskTitleMaster.TaskTitle</td>
+                                            <td>@item.TaskStartTime / @item.TaskEndTime</td>
+                                            <td>@item.EstimateTime / @item.TimeTaken</td>
+                                            <td>@item.TaskDetails</td>
+                                        </tr>
+                                        @*<div class="col-md-6" style="border-radius:5px; border:1px outset black;padding:5px">
+                <label style="font-weight:bold">Task:</label> @item.TaskTitleMaster.TaskTitle<br />
+                <label style="font-weight:bold">Estimate/Spend:</label> @item.EstimateTime / @item.TimeTaken<br />
+                <label style="font-weight:bold">Start/End:</label> @item.TaskStartTime / @item.TaskEndTime<br />
+            </div>*@
+                                    }
+                                </tbody>
                                 </table>
 
                         </div>

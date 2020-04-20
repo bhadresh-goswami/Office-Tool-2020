@@ -28,9 +28,10 @@ namespace DashReportingTool.Areas.User.Controllers
 
             int id = int.Parse(Session["UserId"].ToString());
 
-            var tasks = db.TaskMasters.Where(a => a.RefExpertName == id && a.AssignedTask==null).OrderByDescending(a => a.TaskDate).OrderByDescending(a => a.TaskStartTime).ToList();
-            var pendingTask = tasks.Where(a => !a.TaskDone );
-            var completedTask = tasks.Where(a => a.TaskDone && a.TaskDate.Date == DateTime.Now.Date);
+            var tasks = db.TaskMasters.Where(a => a.RefExpertName == id).OrderByDescending(a => a.TaskDate).OrderByDescending(a => a.TaskStartTime).ToList();
+            var pendingTask = tasks.Where(a => a.RefStatusTitle == 4 || a.RefStatusTitle == 2);
+            var d = db.TaskMasters.Where(a=>a.RefExpertName == id);
+            var completedTask = d.ToList().Where(a => a.TaskDone && a.TaskDate.Date == DateTime.Now.Date);
 
             var assignedTask = db.TaskMasters.Where(a => a.RefExpertName == id && a.AssignedTask==true && !a.TaskDone);
 

@@ -19,6 +19,7 @@ namespace DashReportingTool.Models
         {
             this.CandidateMasters = new HashSet<CandidateMaster>();
             this.BatchMasters = new HashSet<BatchMaster>();
+            this.TaskMasters = new HashSet<TaskMaster>();
         }
     
         public int StatusId { get; set; }
@@ -28,5 +29,7 @@ namespace DashReportingTool.Models
         public virtual ICollection<CandidateMaster> CandidateMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BatchMaster> BatchMasters { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaskMaster> TaskMasters { get; set; }
     }
 }

@@ -28,9 +28,11 @@ namespace DashReportingTool.Models
         public Nullable<bool> AssignedTask { get; set; }
         public Nullable<bool> IsStartedTask { get; set; }
         public Nullable<System.DateTime> DeadLine { get; set; }
+        public Nullable<int> RefStatusTitle { get; set; }
     
         public virtual ExpertMaster ExpertMaster { get; set; }
         public virtual ExpertMaster ExpertMaster1 { get; set; }
+        public virtual StatusMaster StatusMaster { get; set; }
         public virtual TaskTitleMaster TaskTitleMaster { get; set; }
     }
 }

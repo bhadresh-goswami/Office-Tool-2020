@@ -1,8 +1,21 @@
 ﻿@model IEnumerable<DashReportingTool.Models.TaskMaster>
-
+@using DashReportingTool.Models
 @{
+    @*if(Session["UserType"]==null)
+        {
+            <script>
+                window.location.href="@Url.Action("login","authentication",new { @area = ""})";
+            </script>
+        }*@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_defaultLayout.cshtml";
+    var db = new dbReportingEntities();
+    List<ExpertMaster> finalData = db.ExpertMasters.Where(a => a.Designation == "Technical Expert").ToList();
+    if (ViewBag.userType.ToString().Contains("Admin") || ViewBag.userType.ToString().Contains("Manager"))
+    {
+        finalData = db.ExpertMasters.ToList();
+    }
+    SelectList experts = new SelectList(finalData, "ExpertId", "ExpertName");
 }
 
 <h2>Index</h2>
@@ -10,97 +23,277 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskDone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskDetails)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstimateTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskStartTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskEndTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeTaken)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.AssignedTask)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IsStartedTask)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DeadLine)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpertMaster.ExpertName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpertMaster1.ExpertName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TaskTitleMaster.TaskTitle)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskDone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskDetails)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstimateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskStartTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskEndTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeTaken)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.AssignedTask)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IsStartedTask)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DeadLine)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpertMaster.ExpertName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpertMaster1.ExpertName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TaskTitleMaster.TaskTitle)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TaskId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TaskId })
-        </td>
-    </tr>
+@{
+    var data = Model.ToList();
+    var dates = data.Select(x => x.TaskDate).Distinct().OrderByDescending(a => a.Date).ToList();
+    var dict = new Dictionary<DateTime, List<TaskMaster>>();
+    foreach (var item in dates)
+    {
+        dict[item.Date] = data.Where(a => a.TaskDate.Date == item.Date).ToList();
+    }
+
+    int di = 0;
+
+
+
+
 }
 
+<style>
+
+    .table tr {
+        cursor: pointer;
+    }
+
+    .table {
+        background-color: #fff !important;
+    }
+
+    .hedding h1 {
+        color: #fff;
+        font-size: 25px;
+    }
+
+    .main-section {
+        margin-top: 120px;
+    }
+
+    .hiddenRow {
+        padding: 0 4px !important;
+        background-color: #eeeeee;
+        font-size: 13px;
+    }
+
+    .accordian-body span {
+        color: #a2a2a2 !important;
+    }
+</style>
+
+
+<form method="get">
+    <table class="table">
+        <tr>
+            <td>
+                Select Expert Name:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.DropDownList("SelectedExpert", experts, "Select Expert Name", htmlAttributes: new { @class = "form-control float-left" })
+
+            </td>
+            <td align="left"><button class="btn btn-primary"><i class="fa fa-search"></i></button></td>
+        </tr>
+    </table>
+</form>
+
+
+
+<table class="table table-responsive-md" style="border-collapse:collapse;">
+    <thead>
+        <tr>
+            <td>
+                Task Date
+            </td>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        @foreach (var dt in dict.Keys)
+        {
+            <tr data-toggle="collapse" data-target="#demo_@di" class="accordion-toggle">
+
+                <td>
+                    <i class="fa fa-list"></i>  @dt.ToShortDateString()
+                </td>
+            </tr>
+
+            List<TaskMaster> lst = dict[dt];
+
+
+
+            <tr class="p">
+                <td class="hiddenRow">
+
+                    <div class="accordian-body collapse p-3" id="demo_@di">
+                        <table class="table dttable table-responsive-sm">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>
+                                        Task Done
+                                    </th>
+                                    @*<th>
+                                            Task Details
+                                        </th>*@
+                                    <th>
+                                        Estimate Time
+                                        /
+                                        Time Taken
+                                    </th>
+                                    <th>
+                                        TaskStartTime/TaskEndTime
+                                    </th>
+                                    <th>
+                                        Dead Line
+                                    </th>
+                                    <th>
+                                        Expert Name
+                                    </th>
+                                    <th>
+                                        Task Title
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in lst)
+                                {
+                                    <tr>
+                                        <td>
+                                            <button class="btn btn-info" onclick="showTaskData(@item.TaskId)"><i class="fa fa-eye"></i></button>
+                                            <button onclick="DeleteIt(@item.TaskId)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+
+                                        </td>
+                                        <td>
+
+                                            @if (item.TaskDone == true)
+                                            {
+                                                <span class='text-success'>Done</span>
+                                            }
+                                            else
+                                            {
+                                                <span class='text-danger'>Done</span>
+                                            }
+                                        </td>
+
+                                        @*<td>
+                                                @item.TaskDetails
+                                            </td>*@
+                                        <td>
+                                            @item.EstimateTime
+                                            /@item.TimeTaken
+
+                                        </td>
+                                        <td>
+                                            @{
+                                                string[] t = item.TaskStartTime.ToString().Split(':');
+                                                string times = t[0] + ":" + t[1];
+
+                                                var timeFromInput = DateTime.ParseExact(times, "HH:mm", null, System.Globalization.DateTimeStyles.None);
+                                                string timeOutputS = timeFromInput.ToString(
+                                                    "h:mm tt",
+                                                    System.Globalization.CultureInfo.InvariantCulture);
+
+                                                t = item.TaskEndTime.ToString().Split(':');
+                                                times = t[0] + ":" + t[1];
+
+                                                timeFromInput = DateTime.ParseExact(times, "HH:mm", null, System.Globalization.DateTimeStyles.None);
+                                                string timeOutputE = timeFromInput.ToString(
+                                                    "h:mm tt",
+                                                    System.Globalization.CultureInfo.InvariantCulture);
+
+                                            }
+                                            @timeOutputS/@timeOutputE
+                                        </td>
+
+                                        <td>
+                                            @item.DeadLine
+                                        </td>
+                                        <td>
+                                            @{
+                                                var tsk = db.ExpertMasters.SingleOrDefault(a => a.ExpertId == item.RefExpertName);
+                                            }
+                                            @tsk.ExpertName
+                                        </td>
+
+                                        <td>
+                                            @item.TaskTitleMaster.TaskTitle
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.TaskId }) |
+                                            @Html.ActionLink("Details", "Details", new { id = item.TaskId }) |
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+
+
+                @{
+                    di = di + 1;
+                }
+            </tr>
+        }
+    </tbody>
 </table>
+
+<script>
+    $('.accordion-toggle').click(function () {
+        $('.hiddenRow').hide();
+        $(this).next('tr').find('.hiddenRow').show();
+    });
+                        function DeleteIt(tid)
+                        {
+                            if (confirm("Are you Sure?")) {
+
+
+                                $.get("@Url.Action("Delete", "TaskMasters", new { @area = "TechnicalExperts" })", { id: tid }, function (result) {
+                                    //$("span").html(result);
+
+                                    window.location.reload();
+                                });
+                                return true;
+                            }
+                            alert("Delete Cancelled!");
+                            return false;
+                        }
+</script>
+
+<div class="modal" id="showTask">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="titleModal"></h4>
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" id="bodyModal">
+                <br>
+
+            </div>
+
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    function showTaskData(tid) {
+        $("#showTask").modal();
+        $("#titleModal").html("");
+            $("#bodyModal").html(`<img src="/Content/assets/images/YCZH.gif" />`);
+        $.getJSON("@Url.Action("showTask","jsonApi",new { @area = "Manage"} )", { id: tid }, function (data) {
+
+
+            $("#titleModal").html(data.TaskTitle);
+            $("#bodyModal").html(data.TaskDetails);
+
+         });
+
+    }
+</script>

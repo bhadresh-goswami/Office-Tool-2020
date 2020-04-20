@@ -57,7 +57,7 @@
                                 @foreach (var item in Model)
                                 {
                                     string cls = "";
-                                    if(item.TaskDone==false)
+                                    if(item.TaskDone==false && (item.RefStatusTitle == 2 || item.RefStatusTitle==3 || item.RefStatusTitle== 4 ))
                                     {
                                         cls = "background-color:red;color:white;forn-weight:bold;    cursor:pointer;";
                                     }
@@ -73,8 +73,18 @@
                                             @{
                                                 string str = item.TaskDone ? "Done" : "Current/Pending";
                                                 //string dis = "disabled";
+                                                dbReportingEntities db = new dbReportingEntities();
+                                                var s =  db.StatusMasters.SingleOrDefault(a=>a.StatusId == item.RefStatusTitle);
+                                                if(s!=null)
+                                                {
+                                                    @s.StatusTitle
+                                                }
+                                                else
+                                                {
+                                                    @str
+                                                }
                                             }
-                                            @str
+                                            
 
                                         </td>
 

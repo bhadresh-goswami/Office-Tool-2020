@@ -1,24 +1,24 @@
-﻿@if (ViewBag.err != null)
+﻿@if (TempData["err"] != null)
 {
 
     <div class="alert alert-danger alert-dismissible fade show">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        @ViewBag.err
+        @TempData["err"]
     </div>
 }
-else if (ViewBag.msg != null)
+else if (TempData["msg"] != null)
 {
 
     <div class="alert alert-success alert-dismissible fade show">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        @ViewBag.msg
+        @TempData["msg"]
     </div>
 }
-else if (ViewBag.info != null)
+else if (TempData["info"] != null)
 {
     <div class="alert alert-info alert-dismissible fade show">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
-        @ViewBag.msg
+        @TempData["info"]
     </div>
 
 }

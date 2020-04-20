@@ -52,15 +52,24 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CandidateId,CandidateName,CandidateEmailId,CandidateMobile,RefCandidateStatusTitle")] CandidateMaster candidateMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.CandidateMasters.Add(candidateMaster);
-                db.SaveChanges();
+
+                if (ModelState.IsValid)
+                {
+                    db.CandidateMasters.Add(candidateMaster);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.RefCandidateStatusTitle = new SelectList(db.StatusMasters, "StatusId", "StatusTitle", candidateMaster.RefCandidateStatusTitle);
+                return View(candidateMaster);
+            }
+            catch (Exception ex)
+            {
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-
-            ViewBag.RefCandidateStatusTitle = new SelectList(db.StatusMasters, "StatusId", "StatusTitle", candidateMaster.RefCandidateStatusTitle);
-            return View(candidateMaster);
         }
 
         // GET: Manage/CandidateMasters/Edit/5
@@ -86,14 +95,23 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CandidateId,CandidateName,CandidateEmailId,CandidateMobile,RefCandidateStatusTitle")] CandidateMaster candidateMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(candidateMaster).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(candidateMaster).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.RefCandidateStatusTitle = new SelectList(db.StatusMasters, "StatusId", "StatusTitle", candidateMaster.RefCandidateStatusTitle);
+                return View(candidateMaster);
+            }
+            catch (Exception ex)
+            {
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-            ViewBag.RefCandidateStatusTitle = new SelectList(db.StatusMasters, "StatusId", "StatusTitle", candidateMaster.RefCandidateStatusTitle);
-            return View(candidateMaster);
+           
         }
 
         // GET: Manage/CandidateMasters/Delete/5

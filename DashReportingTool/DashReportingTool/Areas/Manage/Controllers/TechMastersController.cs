@@ -50,14 +50,26 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "TechId,TechName")] TechMaster techMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.TechMasters.Add(techMaster);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.TechMasters.Add(techMaster);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View(techMaster);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
 
-            return View(techMaster);
+
+           
         }
 
         // GET: Manage/TechMasters/Edit/5
@@ -82,13 +94,23 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "TechId,TechName")] TechMaster techMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(techMaster).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(techMaster).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View(techMaster);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-            return View(techMaster);
+            
         }
 
         // GET: Manage/TechMasters/Delete/5

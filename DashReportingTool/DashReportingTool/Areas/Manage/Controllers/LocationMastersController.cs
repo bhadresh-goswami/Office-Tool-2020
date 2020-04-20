@@ -50,14 +50,24 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "LocationId,LocationName")] LocationMaster locationMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.LocationMasters.Add(locationMaster);
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.LocationMasters.Add(locationMaster);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View(locationMaster);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
 
-            return View(locationMaster);
         }
 
         // GET: Manage/LocationMasters/Edit/5
@@ -82,12 +92,22 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "LocationId,LocationName")] LocationMaster locationMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(locationMaster).State = EntityState.Modified;
-                db.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    db.Entry(locationMaster).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
+
             return View(locationMaster);
         }
 

@@ -71,28 +71,38 @@ namespace DashReportingTool.Areas.Manage.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CBId,RefCandidateCourseId,RefBatchTitle")] CandidateBatchMaster candidateBatchMaster)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.CandidateBatchMasters.Add(candidateBatchMaster);
-                db.SaveChanges();
+
+                if (ModelState.IsValid)
+                {
+                    db.CandidateBatchMasters.Add(candidateBatchMaster);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                List<mylist> list = new List<mylist>();
+                foreach (var item in db.CandidateCourseMasters)
+                {
+                    var str = item.CandidateMaster.CandidateName + " " + item.CourseMaster.CourseTitle;
+                    list.Add(new mylist()
+                    {
+                        CCId = item.CCId,
+                        Name = str
+                    });
+
+                }
+                ViewBag.RefCandidateCourseId = new SelectList(list, "CCId", "Name");
+                ViewBag.RefBatchTitle = new SelectList(db.BatchMasters, "BatchId", "BatchName", candidateBatchMaster.RefBatchTitle);
+                // ViewBag.RefCandidateCourseId = new SelectList(db.CandidateCourseMasters, "CCId", "CCId", candidateBatchMaster.RefCandidateCourseId);
+                return View(candidateBatchMaster);
+            }
+            catch (Exception ex)
+            {
+
+                TempData["err"] = ex.Message;
                 return RedirectToAction("Index");
             }
-
-            List<mylist> list = new List<mylist>();
-            foreach (var item in db.CandidateCourseMasters)
-            {
-                var str = item.CandidateMaster.CandidateName + " " + item.CourseMaster.CourseTitle;
-                list.Add(new mylist()
-                {
-                    CCId = item.CCId,
-                    Name = str
-                });
-
-            }
-            ViewBag.RefCandidateCourseId = new SelectList(list, "CCId", "Name");
-            ViewBag.RefBatchTitle = new SelectList(db.BatchMasters, "BatchId", "BatchName", candidateBatchMaster.RefBatchTitle);
-           // ViewBag.RefCandidateCourseId = new SelectList(db.CandidateCourseMasters, "CCId", "CCId", candidateBatchMaster.RefCandidateCourseId);
-            return View(candidateBatchMaster);
         }
 
         // GET: Manage/CandidateBatchMasters/Edit/5
