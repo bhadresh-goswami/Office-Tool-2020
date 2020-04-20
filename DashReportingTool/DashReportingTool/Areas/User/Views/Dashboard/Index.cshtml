@@ -1,0 +1,137 @@
+﻿@model IEnumerable<DashReportingTool.Models.TaskMaster>
+@using DashReportingTool.Models
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-md-flex align-items-center">
+                    <div>
+                        <h4 class="card-title">Task Summary</h4>
+                        <h5 class="card-subtitle">Overview of Tasks</h5>
+                    </div>
+                    <div class="ml-auto d-flex no-block align-items-center">
+                        <ul class="list-inline font-12 dl m-r-15 m-b-0">
+                            <li class="list-inline-item text-danger"><i class="fa fa-circle"></i> Pending</li>
+                            <li class="list-inline-item text-success"><i class="fa fa-circle"></i> Completed</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-lg-12">
+
+                        <table class="table dttable">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TaskTitleMaster.TaskTitle)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TaskDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TaskDone)
+                                    </th>
+
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.TaskStartTime)
+                                        /@Html.DisplayNameFor(model => model.TaskEndTime)
+
+
+
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EstimateTime)
+                                        /
+                                        @Html.DisplayNameFor(model => model.TimeTaken)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    string cls = "";
+                                    if(item.TaskDone==false)
+                                    {
+                                        cls = "background-color:red;color:white;forn-weight:bold;    cursor:pointer;";
+                                    }
+
+                                    <tr style="@cls" onclick="showTaskData(@item.TaskId)">
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TaskTitleMaster.TaskTitle)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TaskDate)
+                                        </td>
+                                        <td>
+                                            @{
+                                                string str = item.TaskDone ? "Done" : "Current/Pending";
+                                                //string dis = "disabled";
+                                            }
+                                            @str
+
+                                        </td>
+
+                                        <td>
+                                            @{
+                                                string[] t = item.TaskStartTime.ToString().Split(':');
+                                                string times = t[0] + ":" + t[1];
+
+                                                var timeFromInput = DateTime.ParseExact(times, "HH:mm", null, System.Globalization.DateTimeStyles.None);
+                                                string timeOutputS = timeFromInput.ToString(
+                                                    "h:mm tt",
+                                                    System.Globalization.CultureInfo.InvariantCulture);
+
+                                                t = item.TaskEndTime.ToString().Split(':');
+                                                times = t[0] + ":" + t[1];
+
+                                                timeFromInput = DateTime.ParseExact(times, "HH:mm", null, System.Globalization.DateTimeStyles.None);
+                                                string timeOutputE = timeFromInput.ToString(
+                                                    "h:mm tt",
+                                                    System.Globalization.CultureInfo.InvariantCulture);
+
+                                            }
+                                            @timeOutputS/@timeOutputE
+
+                                            
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EstimateTime)
+
+                                            /
+                                            @Html.DisplayFor(modelItem => item.TimeTaken)
+                                        </td>
+                                        @*<td>
+                                                @Html.DisplayFor(modelItem => item.ExpertMaster.ExpertName)
+                                            </td>*@
+
+                                        <td>
+
+                                            @*@Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
+                                                @Html.ActionLink("Details", "Details", new { id=item.TaskId }) |
+                                                @Html.ActionLink("Delete", "Delete", new { id=item.TaskId })*@
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <!-- column -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        @Html.Partial("_sideFeeds")
+    </div>
+</div>
+

@@ -1,0 +1,25 @@
+﻿@if (ViewBag.err != null)
+{
+
+    <div class="alert alert-danger alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @ViewBag.err
+    </div>
+}
+else if (ViewBag.msg != null)
+{
+
+    <div class="alert alert-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @ViewBag.msg
+    </div>
+}
+else if (ViewBag.info != null)
+{
+    <div class="alert alert-info alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @ViewBag.msg
+    </div>
+
+}
+

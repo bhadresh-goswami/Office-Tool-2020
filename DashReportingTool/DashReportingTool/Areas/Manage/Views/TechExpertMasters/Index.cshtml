@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DashReportingTool.Models.TechExpertMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table dttable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TechExpertIsEnabled)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpertMaster.ExpertName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TechMaster.TechName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TechExpertIsEnabled)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpertMaster.ExpertName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TechMaster.TechName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.TechExpertId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.TechExpertId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.TechExpertId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

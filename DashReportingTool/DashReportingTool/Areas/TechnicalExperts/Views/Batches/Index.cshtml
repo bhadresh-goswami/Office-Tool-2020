@@ -1,0 +1,372 @@
+﻿@model IEnumerable<DashReportingTool.Models.BatchMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table dttable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BatchName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompletedDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Technology)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusMaster.StatusTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpertMaster.ExpertName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href="#" class="" id="btnCList" onclick="showSession(@item.BatchId)"><i class="fa fa-list"></i> @item.BatchName</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompletedDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Technology)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StatusMaster.StatusTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpertMaster.ExpertName)
+                </td>
+                <td>
+                    <a href="#" class="btn btn-info" id="btnCList" onclick="onClickListShow(@item.BatchId)"><i class="fa fa-list"></i> Candidates</a>
+                    <a href="#" class="btn btn-pinterest" id="Sessionbtn" onclick="addSession(@item.BatchId)"><i class="fa fa-plus-circle"></i> Session</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">List of Candidates</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <table class="table table-box">
+                    <tr>
+                        <th>
+                            Candiate Name
+                        </th>
+                        <th>
+                            Technology Name
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                    <tbody id="candidateList">
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="addSession">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Add Session Data</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                @{
+                    ViewBag.Title = "Create";
+                    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+                }
+
+
+                @using (Html.BeginForm("Create", "SessionMasters", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+                        <h4>Session Add</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label for="SessionTitle" class="control-label col-md-2">Session Title</label>
+                            <div class="col-md-10">
+                                <input type="text" id="SessionTitle" name="SessionTitle" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="SessionTopic" class="control-label col-md-2">Session Topic</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" id="SessionTopic" name="SessionTopic" required />
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="SessionDate" class="control-label col-md-2">Session Date</label>
+                            <div class="col-md-10">
+                                <input type="date" class="form-control" id="SessionDate" name="SessionDate" required />
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="RefBatchTitle" class="control-label col-md-2">Batch Title</label>
+
+                            <div class="col-md-10">
+                                @*<select class="form-control" id="RefBatchTitle" name="RefBatchTitle">
+                                        <option>Select Batch</option>
+                                        @{
+                                            List<SelectListItem> data = (List<SelectListItem>)ViewBag.RefBatchTitle;
+                                        }
+                                        @for (int i = 0; i < data.Count; i++)
+                                        {
+                                            <option value="@data[i].Value">@data[i].Text</option>
+                                        }
+                                    </select>*@
+                                @Html.DropDownList("RefBatchTitle", null, "Select Batch", htmlAttributes: new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Candidate List</label>
+
+                            <div class="col-md-10" id="chklist">
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Create" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="listSession">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">List Session</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Session Title
+                        </th>
+                        <th>
+                            Session Topic
+                        </th>
+                        <th>
+                            Session Date
+                        </th>
+                        <th>
+                            Present Candidates
+                        </th>
+                        <th>
+                            Absent Candidates
+                        </th>
+                      
+                        <th></th>
+                    </tr>
+
+                    <tbody id="sessionlist">
+
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                aa
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+            <script>
+                
+
+                function showSession(bid) {
+                     $.getJSON("@Url.Action("getSessionList","jsonApi",new { @area = "Manage"})", {id:bid}, function (data) {
+            var textHTML = "";
+
+                         $.each(data, function (index, val) {
+                             var sdate = ConvertJsonDateString(val.SessionDate);
+                textHTML += `
+                        <tr>
+                        <td>
+                            ${val.SessionTitle}
+                        </td>
+                        <td>
+                            ${val.SessionTopic}
+                        </td>
+                        <td>
+                            ${sdate}
+                        </td>
+                        <td>
+                            ${val.PresentCandidates}
+                        </td>
+                        <td>
+                            ${val.BatchName}
+                        </td>
+
+                        <td></td>
+                `;
+            });
+
+                         //$("#myModal").modal();
+                         $("#sessionlist").html(textHTML);
+                     $("#listSession").modal();
+
+            //alert(textHTML);
+        });
+
+                }
+            </script>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+
+
+    function onClickListShow(cid) {
+        //alert(cid);
+
+        $.getJSON("@Url.Action("getCandidateList","jsonApi",new { @area = "Manage"})", {id:cid}, function (data) {
+            var textHTML = "";
+
+            $.each(data, function (index, val) {
+                textHTML += `
+                     <tr>
+                        <td>
+                            ${val.CandidateName}
+                        </td>
+                        <td>
+                            ${val.Technology}
+                        </td>
+                        <td>Action</td>
+                    </tr>
+                `;
+            });
+
+            $("#myModal").modal();
+            $("#candidateList").html(textHTML);
+
+            //alert(textHTML);
+        });
+    }
+    //onClickListShow(1);
+    function addSession(bid) {
+         $.getJSON("@Url.Action("getCandidateList","jsonApi",new { @area = "Manage"})", {id:bid}, function (data) {
+            var textHTML = "";
+
+            $.each(data, function (index, val) {
+                textHTML += `
+                    <input type="checkbox" name="list" value="${val.CandidateName}"> ${val.CandidateName}
+                `;
+            });
+
+            //$("#myModal").modal();
+            $("#chklist").html(textHTML);
+                     $("#addSession").modal();
+
+            //alert(textHTML);
+        });
+
+    }
+</script>

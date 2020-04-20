@@ -1,0 +1,62 @@
+﻿@model IEnumerable<DashReportingTool.Models.CourseMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table dttable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fees)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsCourseEnabled)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fees)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CourseContent)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsCourseEnabled)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CourseId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.CourseId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CourseId })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

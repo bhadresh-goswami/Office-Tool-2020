@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DashReportingTool.Models.CandidateMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CandidateName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CandidateEmailId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CandidateMobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StatusMaster.StatusTitle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CandidateName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CandidateEmailId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CandidateMobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StatusMaster.StatusTitle)
+        </td>
+        <td>
+            <a href="@Url.Action("Create","CandidateCourseMasters",new { @area="Manage"})?id=@item.CandidateId" class="btn btn-dark">Add Course</a>
+            <a href="">Add Batch</a>
+            @Html.ActionLink("Edit", "Edit", new { id = item.CandidateId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.CandidateId }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.CandidateId })
+        </td>
+    </tr>
+}
+
+</table>

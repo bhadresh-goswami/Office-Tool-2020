@@ -1,0 +1,35 @@
+﻿@model DashReportingTool.Models.CandidateCourseMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CandidateCourseMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CandidateMaster.CandidateName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CandidateMaster.CandidateName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseMaster.CourseTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseMaster.CourseTitle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CCId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,125 @@
+﻿@model DashReportingTool.Models.BatchMaster
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Create</h2>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+<script src="~/Content/timepicker/wickedpicker.min.js"></script>
+<link href="~/Content/timepicker/wickedpicker.min.css" rel="stylesheet" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>BatchMaster</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Technology, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Technology, new { htmlAttributes = new { @class = "form-control seltech" } })
+            @Html.ValidationMessageFor(model => model.Technology, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BatchName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.BatchName, new { htmlAttributes = new { @class = "form-control BatchName" } })
+            @Html.ValidationMessageFor(model => model.BatchName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.RefExpertName, "RefExpertName", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("RefExpertName", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.RefExpertName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control timepicker" } })
+            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control timepicker" } })
+            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control dtpick" } })
+            @Html.ValidationMessageFor(model => model.StartDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CompletedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CompletedDate, new { htmlAttributes = new { @class = "form-control dtpick" } })
+            @Html.ValidationMessageFor(model => model.CompletedDate, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.BatchStatus, "BatchStatus", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("BatchStatus", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.BatchStatus, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<script>
+    $.getJSON("@Url.Action("getTechs","jsonApi",new { @area = "Manage"})", "", function (data) {
+
+        //seltech
+        var arr = [];
+        $.each(data, function (ind, val) {
+
+            arr.push(val.TechName);
+
+        });
+         $( ".seltech" ).autocomplete({
+      source: arr
+    });
+        console.log(arr);
+    });
+    
+    $(".seltech").change(function () {
+        //alert($(".seltech").val());
+        $(".BatchName").val($(".seltech").val());
+    });
+    $("#StartTime").change(function () {
+        //alert($(".seltech").val());
+        $("#EndTime").val($("#StartTime").val());
+    });
+</script>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

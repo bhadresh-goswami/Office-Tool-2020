@@ -1,0 +1,106 @@
+﻿@model IEnumerable<DashReportingTool.Models.TaskMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskDone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskDetails)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstimateTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskStartTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskEndTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeTaken)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AssignedTask)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsStartedTask)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeadLine)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpertMaster.ExpertName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExpertMaster1.ExpertName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TaskTitleMaster.TaskTitle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskDone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskDetails)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EstimateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskStartTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskEndTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeTaken)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AssignedTask)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsStartedTask)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeadLine)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpertMaster.ExpertName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExpertMaster1.ExpertName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TaskTitleMaster.TaskTitle)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TaskId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TaskId })
+        </td>
+    </tr>
+}
+
+</table>

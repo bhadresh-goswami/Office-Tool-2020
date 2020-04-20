@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DashReportingTool.Models.ExpertMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table dttable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpertName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpertPassword)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpertEmailid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExpertMobile)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Designation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationMaster.LocationName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpertName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpertPassword)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpertEmailid)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExpertMobile)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Designation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocationMaster.LocationName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ExpertId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ExpertId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ExpertId })
+                </td>
+            </tr>
+        }
+    </tbody>
+
+</table>

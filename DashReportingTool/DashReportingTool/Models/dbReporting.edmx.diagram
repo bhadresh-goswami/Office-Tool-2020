@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4ec2350b8b6c42d0b33b62fd6dd7adcb" Name="Diagram1">
+        <EntityTypeShape EntityType="dbReportingModel.CandidateBatchMaster" Width="1.5" PointX="7.5" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingModel.CandidateCourseMaster" Width="1.5" PointX="5.25" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingModel.CandidateMaster" Width="1.5" PointX="3" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingModel.CourseMaster" Width="1.5" PointX="3" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingModel.ExpertMaster" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingModel.LocationMaster" Width="1.5" PointX="1.5" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingModel.SessionMaster" Width="1.5" PointX="5.25" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingModel.StatusMaster" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingModel.TechExpertMaster" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbReportingModel.TechMaster" Width="1.5" PointX="0.75" PointY="15.625" IsExpanded="true" />
+        <AssociationConnector Association="dbReportingModel.FK__Candidate__RefCa__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="dbReportingModel.FK__Candidate__RefCa__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="dbReportingModel.FK__Candidate__RefCo__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="dbReportingModel.FK__Candidate__RefCa__49C3F6B7" ManuallyRouted="false" />
+        <AssociationConnector Association="dbReportingModel.FK__ExpertMas__RefLo__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="dbReportingModel.FK__TechExper__RefEx__4316F928" ManuallyRouted="false" />
+        <AssociationConnector Association="dbReportingModel.FK__TechExper__RefTe__4222D4EF" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbReportingModel.BatchMaster" Width="1.5" PointX="3" PointY="4.25" />
+        <AssociationConnector Association="dbReportingModel.FK__BatchMast__Batch__5535A963" />
+        <AssociationConnector Association="dbReportingModel.FK__BatchMast__RefEx__5441852A" />
+        <AssociationConnector Association="dbReportingModel.FK__Candidate__RefBa__59063A47" />
+        <AssociationConnector Association="dbReportingModel.FK__SessionMa__RefBa__5BE2A6F2" />
+        <EntityTypeShape EntityType="dbReportingModel.TaskTitleMaster" Width="1.5" PointX="3.75" PointY="12.625" />
+        <EntityTypeShape EntityType="dbReportingModel.TaskMaster" Width="1.5" PointX="8" PointY="1.375" />
+        <AssociationConnector Association="dbReportingModel.FK__TaskMaste__RefAs__628FA481" />
+        <AssociationConnector Association="dbReportingModel.FK__TaskMaste__RefEx__60A75C0F" />
+        <AssociationConnector Association="dbReportingModel.FK__TaskMaste__RefTa__619B8048" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

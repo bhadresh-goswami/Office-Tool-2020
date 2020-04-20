@@ -1,0 +1,123 @@
+﻿@model DashReportingTool.Models.TaskMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TaskMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDetails)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDetails)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstimateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstimateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskStartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskStartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskEndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskEndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeTaken)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeTaken)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignedTask)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AssignedTask)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsStartedTask)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsStartedTask)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeadLine)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeadLine)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpertMaster.ExpertName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpertMaster.ExpertName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpertMaster1.ExpertName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpertMaster1.ExpertName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskTitleMaster.TaskTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskTitleMaster.TaskTitle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TaskId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

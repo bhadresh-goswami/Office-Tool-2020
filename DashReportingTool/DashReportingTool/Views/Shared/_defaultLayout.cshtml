@@ -1,0 +1,172 @@
+﻿@{
+
+    if(Session["UserId"]==null)
+    {
+        <script>
+            window.location = "@Url.Action("Login","Authentication",new { @area = ""})";
+        </script>
+    }
+
+ }
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="~/Content/assets/images/favicon.png">
+    <title>Dash Tech Reporting</title>
+    <!-- Custom CSS -->
+    <link href="~/Content/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="~/Content/dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="~/Content/assets/libs/jquery/dist/jquery.min.js"></script>
+
+    <link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+    @*<script src="https://code.jquery.com/jquery-3.3.1.js"></script>*@
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script>
+        function ConvertJsonDateString(jsonDate) {
+                    var shortDate = null;
+                    if (jsonDate) {
+                        var regex = /-?\d+/;
+                        var matches = regex.exec(jsonDate);
+                        var dt = new Date(parseInt(matches[0]));
+                        var month = dt.getMonth() + 1;
+                        var monthString = month > 9 ? month : '0' + month;
+                        var day = dt.getDate();
+                        var dayString = day > 9 ? day : '0' + day;
+                        var year = dt.getFullYear();
+                        shortDate = monthString + '-' + dayString + '-' + year;
+                    }
+                    return shortDate;
+                };
+    </script>
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full" data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        @Html.Partial("_header")
+
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        @if (Session["UserId"] != null && Session["UserType"] != null)
+        {
+            string UserType = Session["UserType"].ToString().ToLower();
+            switch (UserType)
+            {
+                case "admin":
+                    @Html.Partial("_adminMenu")
+                    break;
+                case "technical expert":
+                    @Html.Partial("_techExpertMenu")
+                    break;
+                case "team lead":
+                    @Html.Partial("_tlMenu")
+                    break;
+                default:
+                    break;
+            }
+        }
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row align-items-center">
+                    <div class="col-5">
+                        <h4 class="page-title">@ViewBag.title</h4>
+                        <div class="d-flex align-items-center">
+
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="text-right upgrade-btn" style="  visibility: hidden;">
+                            <a href="https://wrappixel.com/templates/xtremeadmin/" class="btn btn-danger text-white" target="_blank">Upgrade to Pro</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Sales chart -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12">
+                        @RenderBody()
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            @Html.Partial("_footer")
+            <script>
+
+                $('.dttable').DataTable();
+
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.dtpick').datepicker({
+                        dateFormat: "dd/M/yy",
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-60:+0"
+                    });
+
+                });
+
+                                        //$('.timepicker').wickedpicker();
+
+            </script>
+</body>
+
+</html>

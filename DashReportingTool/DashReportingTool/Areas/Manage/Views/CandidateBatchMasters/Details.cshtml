@@ -1,0 +1,35 @@
+﻿@model DashReportingTool.Models.CandidateBatchMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CandidateBatchMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BatchMaster.BatchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BatchMaster.BatchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CandidateCourseMaster.CCId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CandidateCourseMaster.CCId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CBId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

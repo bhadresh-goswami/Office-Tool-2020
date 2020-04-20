@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="dbReportingModelStoreContainer" CdmEntityContainer="dbReportingEntities">
+    <EntitySetMapping Name="CandidateBatchMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.CandidateBatchMaster">
+        <MappingFragment StoreEntitySet="CandidateBatchMaster">
+          <ScalarProperty Name="CBId" ColumnName="CBId" />
+          <ScalarProperty Name="RefCandidateCourseId" ColumnName="RefCandidateCourseId" />
+          <ScalarProperty Name="RefBatchTitle" ColumnName="RefBatchTitle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CandidateCourseMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.CandidateCourseMaster">
+        <MappingFragment StoreEntitySet="CandidateCourseMaster">
+          <ScalarProperty Name="CCId" ColumnName="CCId" />
+          <ScalarProperty Name="RefCandidateTitle" ColumnName="RefCandidateTitle" />
+          <ScalarProperty Name="RefCourseTitle" ColumnName="RefCourseTitle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CandidateMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.CandidateMaster">
+        <MappingFragment StoreEntitySet="CandidateMaster">
+          <ScalarProperty Name="CandidateId" ColumnName="CandidateId" />
+          <ScalarProperty Name="CandidateName" ColumnName="CandidateName" />
+          <ScalarProperty Name="CandidateEmailId" ColumnName="CandidateEmailId" />
+          <ScalarProperty Name="CandidateMobile" ColumnName="CandidateMobile" />
+          <ScalarProperty Name="RefCandidateStatusTitle" ColumnName="RefCandidateStatusTitle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.CourseMaster">
+        <MappingFragment StoreEntitySet="CourseMaster">
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="CourseTitle" ColumnName="CourseTitle" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Fees" ColumnName="Fees" />
+          <ScalarProperty Name="CourseContent" ColumnName="CourseContent" />
+          <ScalarProperty Name="IsCourseEnabled" ColumnName="IsCourseEnabled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExpertMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.ExpertMaster">
+        <MappingFragment StoreEntitySet="ExpertMaster">
+          <ScalarProperty Name="ExpertId" ColumnName="ExpertId" />
+          <ScalarProperty Name="ExpertName" ColumnName="ExpertName" />
+          <ScalarProperty Name="ExpertPassword" ColumnName="ExpertPassword" />
+          <ScalarProperty Name="ExpertEmailid" ColumnName="ExpertEmailid" />
+          <ScalarProperty Name="ExpertMobile" ColumnName="ExpertMobile" />
+          <ScalarProperty Name="Designation" ColumnName="Designation" />
+          <ScalarProperty Name="RefLocationId" ColumnName="RefLocationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LocationMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.LocationMaster">
+        <MappingFragment StoreEntitySet="LocationMaster">
+          <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+          <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SessionMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.SessionMaster">
+        <MappingFragment StoreEntitySet="SessionMaster">
+          <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+          <ScalarProperty Name="SessionTitle" ColumnName="SessionTitle" />
+          <ScalarProperty Name="SessionTopic" ColumnName="SessionTopic" />
+          <ScalarProperty Name="SessionDate" ColumnName="SessionDate" />
+          <ScalarProperty Name="RefBatchTitle" ColumnName="RefBatchTitle" />
+          <ScalarProperty Name="PresentCandidates" ColumnName="PresentCandidates" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatusMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.StatusMaster">
+        <MappingFragment StoreEntitySet="StatusMaster">
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="StatusTitle" ColumnName="StatusTitle" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TechExpertMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.TechExpertMaster">
+        <MappingFragment StoreEntitySet="TechExpertMaster">
+          <ScalarProperty Name="TechExpertId" ColumnName="TechExpertId" />
+          <ScalarProperty Name="RefTechId" ColumnName="RefTechId" />
+          <ScalarProperty Name="RefExpertId" ColumnName="RefExpertId" />
+          <ScalarProperty Name="TechExpertIsEnabled" ColumnName="TechExpertIsEnabled" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TechMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.TechMaster">
+        <MappingFragment StoreEntitySet="TechMaster">
+          <ScalarProperty Name="TechId" ColumnName="TechId" />
+          <ScalarProperty Name="TechName" ColumnName="TechName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BatchMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.BatchMaster">
+        <MappingFragment StoreEntitySet="BatchMaster">
+          <ScalarProperty Name="Technology" ColumnName="Technology" />
+          <ScalarProperty Name="BatchStatus" ColumnName="BatchStatus" />
+          <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="RefExpertName" ColumnName="RefExpertName" />
+          <ScalarProperty Name="BatchName" ColumnName="BatchName" />
+          <ScalarProperty Name="BatchId" ColumnName="BatchId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaskMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.TaskMaster">
+        <MappingFragment StoreEntitySet="TaskMaster">
+          <ScalarProperty Name="TimeTaken" ColumnName="TimeTaken" />
+          <ScalarProperty Name="TaskEndTime" ColumnName="TaskEndTime" />
+          <ScalarProperty Name="TaskStartTime" ColumnName="TaskStartTime" />
+          <ScalarProperty Name="EstimateTime" ColumnName="EstimateTime" />
+          <ScalarProperty Name="RefTaskTitle" ColumnName="RefTaskTitle" />
+          <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+          <ScalarProperty Name="RefExpertName" ColumnName="RefExpertName" />
+          <ScalarProperty Name="TaskDone" ColumnName="TaskDone" />
+          <ScalarProperty Name="TaskDate" ColumnName="TaskDate" />
+          <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaskTitleMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.TaskTitleMaster">
+        <MappingFragment StoreEntitySet="TaskTitleMaster">
+          <ScalarProperty Name="TaskTitle" ColumnName="TaskTitle" />
+          <ScalarProperty Name="TaskTitleId" ColumnName="TaskTitleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

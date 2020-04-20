@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbReportingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BatchMaster">
+    <Key>
+      <PropertyRef Name="BatchId" />
+    </Key>
+    <Property Name="BatchId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BatchName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="RefExpertName" Type="int" Nullable="false" />
+    <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="StartDate" Type="date" Nullable="false" />
+    <Property Name="CompletedDate" Type="date" Nullable="false" />
+    <Property Name="BatchStatus" Type="int" Nullable="false" />
+    <Property Name="Technology" Type="varchar" MaxLength="300" />
+  </EntityType>
+  <EntityType Name="CandidateBatchMaster">
+    <Key>
+      <PropertyRef Name="CBId" />
+    </Key>
+    <Property Name="CBId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RefCandidateCourseId" Type="int" Nullable="false" />
+    <Property Name="RefBatchTitle" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CandidateCourseMaster">
+    <Key>
+      <PropertyRef Name="CCId" />
+    </Key>
+    <Property Name="CCId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RefCandidateTitle" Type="int" Nullable="false" />
+    <Property Name="RefCourseTitle" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CandidateMaster">
+    <Key>
+      <PropertyRef Name="CandidateId" />
+    </Key>
+    <Property Name="CandidateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CandidateName" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="CandidateEmailId" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="CandidateMobile" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RefCandidateStatusTitle" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CourseMaster">
+    <Key>
+      <PropertyRef Name="CourseId" />
+    </Key>
+    <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseTitle" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Duration" Type="int" Nullable="false" />
+    <Property Name="Fees" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="CourseContent" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="IsCourseEnabled" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExpertMaster">
+    <Key>
+      <PropertyRef Name="ExpertId" />
+    </Key>
+    <Property Name="ExpertId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExpertName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="ExpertPassword" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="ExpertEmailid" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="ExpertMobile" Type="varchar" MaxLength="12" Nullable="false" />
+    <Property Name="Designation" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RefLocationId" Type="int" />
+  </EntityType>
+  <EntityType Name="LocationMaster">
+    <Key>
+      <PropertyRef Name="LocationId" />
+    </Key>
+    <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="LocationName" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SessionMaster">
+    <Key>
+      <PropertyRef Name="SessionId" />
+    </Key>
+    <Property Name="SessionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SessionTitle" Type="varchar" MaxLength="500" Nullable="false" />
+    <Property Name="SessionTopic" Type="varchar(max)" Nullable="false" />
+    <Property Name="SessionDate" Type="date" Nullable="false" />
+    <Property Name="RefBatchTitle" Type="int" Nullable="false" />
+    <Property Name="PresentCandidates" Type="varchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatusMaster">
+    <Key>
+      <PropertyRef Name="StatusId" />
+    </Key>
+    <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StatusTitle" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TaskMaster">
+    <Key>
+      <PropertyRef Name="TaskId" />
+    </Key>
+    <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TaskDate" Type="date" Nullable="false" />
+    <Property Name="TaskDone" Type="bit" Nullable="false" />
+    <Property Name="RefExpertName" Type="int" Nullable="false" />
+    <Property Name="TaskDetails" Type="varchar" MaxLength="400" Nullable="false" />
+    <Property Name="RefTaskTitle" Type="int" Nullable="false" />
+    <Property Name="EstimateTime" Type="int" Nullable="false" />
+    <Property Name="TaskStartTime" Type="time" Precision="7" />
+    <Property Name="TaskEndTime" Type="time" Precision="7" />
+    <Property Name="TimeTaken" Type="int" />
+  </EntityType>
+  <EntityType Name="TaskTitleMaster">
+    <Key>
+      <PropertyRef Name="TaskTitleId" />
+    </Key>
+    <Property Name="TaskTitleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TaskTitle" Type="varchar" MaxLength="200" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TechExpertMaster">
+    <Key>
+      <PropertyRef Name="TechExpertId" />
+    </Key>
+    <Property Name="TechExpertId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RefTechId" Type="int" Nullable="false" />
+    <Property Name="RefExpertId" Type="int" Nullable="false" />
+    <Property Name="TechExpertIsEnabled" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TechMaster">
+    <Key>
+      <PropertyRef Name="TechId" />
+    </Key>
+    <Property Name="TechId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TechName" Type="varchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__BatchMast__Batch__5535A963">
+    <End Role="StatusMaster" Type="Self.StatusMaster" Multiplicity="1" />
+    <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusMaster">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="BatchMaster">
+        <PropertyRef Name="BatchStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BatchMast__RefEx__5441852A">
+    <End Role="ExpertMaster" Type="Self.ExpertMaster" Multiplicity="1" />
+    <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExpertMaster">
+        <PropertyRef Name="ExpertId" />
+      </Principal>
+      <Dependent Role="BatchMaster">
+        <PropertyRef Name="RefExpertName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Candidate__RefBa__59063A47">
+    <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="1" />
+    <End Role="CandidateBatchMaster" Type="Self.CandidateBatchMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BatchMaster">
+        <PropertyRef Name="BatchId" />
+      </Principal>
+      <Dependent Role="CandidateBatchMaster">
+        <PropertyRef Name="RefBatchTitle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Candidate__RefCa__49C3F6B7">
+    <End Role="StatusMaster" Type="Self.StatusMaster" Multiplicity="1" />
+    <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatusMaster">
+        <PropertyRef Name="StatusId" />
+      </Principal>
+      <Dependent Role="CandidateMaster">
+        <PropertyRef Name="RefCandidateStatusTitle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Candidate__RefCa__4F7CD00D">
+    <End Role="CandidateMaster" Type="Self.CandidateMaster" Multiplicity="1" />
+    <End Role="CandidateCourseMaster" Type="Self.CandidateCourseMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CandidateMaster">
+        <PropertyRef Name="CandidateId" />
+      </Principal>
+      <Dependent Role="CandidateCourseMaster">
+        <PropertyRef Name="RefCandidateTitle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Candidate__RefCa__5812160E">
+    <End Role="CandidateCourseMaster" Type="Self.CandidateCourseMaster" Multiplicity="1" />
+    <End Role="CandidateBatchMaster" Type="Self.CandidateBatchMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CandidateCourseMaster">
+        <PropertyRef Name="CCId" />
+      </Principal>
+      <Dependent Role="CandidateBatchMaster">
+        <PropertyRef Name="RefCandidateCourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Candidate__RefCo__5070F446">
+    <End Role="CourseMaster" Type="Self.CourseMaster" Multiplicity="1" />
+    <End Role="CandidateCourseMaster" Type="Self.CandidateCourseMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseMaster">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="CandidateCourseMaster">
+        <PropertyRef Name="RefCourseTitle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ExpertMas__RefLo__3F466844">
+    <End Role="LocationMaster" Type="Self.LocationMaster" Multiplicity="0..1" />
+    <End Role="ExpertMaster" Type="Self.ExpertMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LocationMaster">
+        <PropertyRef Name="LocationId" />
+      </Principal>
+      <Dependent Role="ExpertMaster">
+        <PropertyRef Name="RefLocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SessionMa__RefBa__5BE2A6F2">
+    <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="1" />
+    <End Role="SessionMaster" Type="Self.SessionMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BatchMaster">
+        <PropertyRef Name="BatchId" />
+      </Principal>
+      <Dependent Role="SessionMaster">
+        <PropertyRef Name="RefBatchTitle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TaskMaste__RefEx__60A75C0F">
+    <End Role="ExpertMaster" Type="Self.ExpertMaster" Multiplicity="1" />
+    <End Role="TaskMaster" Type="Self.TaskMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExpertMaster">
+        <PropertyRef Name="ExpertId" />
+      </Principal>
+      <Dependent Role="TaskMaster">
+        <PropertyRef Name="RefExpertName" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TaskMaste__RefTa__619B8048">
+    <End Role="TaskTitleMaster" Type="Self.TaskTitleMaster" Multiplicity="1" />
+    <End Role="TaskMaster" Type="Self.TaskMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaskTitleMaster">
+        <PropertyRef Name="TaskTitleId" />
+      </Principal>
+      <Dependent Role="TaskMaster">
+        <PropertyRef Name="RefTaskTitle" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TechExper__RefEx__4316F928">
+    <End Role="ExpertMaster" Type="Self.ExpertMaster" Multiplicity="1" />
+    <End Role="TechExpertMaster" Type="Self.TechExpertMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExpertMaster">
+        <PropertyRef Name="ExpertId" />
+      </Principal>
+      <Dependent Role="TechExpertMaster">
+        <PropertyRef Name="RefExpertId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TechExper__RefTe__4222D4EF">
+    <End Role="TechMaster" Type="Self.TechMaster" Multiplicity="1" />
+    <End Role="TechExpertMaster" Type="Self.TechExpertMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TechMaster">
+        <PropertyRef Name="TechId" />
+      </Principal>
+      <Dependent Role="TechExpertMaster">
+        <PropertyRef Name="RefTechId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="dbReportingModelStoreContainer">
+    <EntitySet Name="BatchMaster" EntityType="Self.BatchMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CandidateBatchMaster" EntityType="Self.CandidateBatchMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CandidateCourseMaster" EntityType="Self.CandidateCourseMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CandidateMaster" EntityType="Self.CandidateMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseMaster" EntityType="Self.CourseMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExpertMaster" EntityType="Self.ExpertMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LocationMaster" EntityType="Self.LocationMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SessionMaster" EntityType="Self.SessionMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StatusMaster" EntityType="Self.StatusMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TaskMaster" EntityType="Self.TaskMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TaskTitleMaster" EntityType="Self.TaskTitleMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TechExpertMaster" EntityType="Self.TechExpertMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TechMaster" EntityType="Self.TechMaster" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__BatchMast__Batch__5535A963" Association="Self.FK__BatchMast__Batch__5535A963">
+      <End Role="StatusMaster" EntitySet="StatusMaster" />
+      <End Role="BatchMaster" EntitySet="BatchMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BatchMast__RefEx__5441852A" Association="Self.FK__BatchMast__RefEx__5441852A">
+      <End Role="ExpertMaster" EntitySet="ExpertMaster" />
+      <End Role="BatchMaster" EntitySet="BatchMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Candidate__RefBa__59063A47" Association="Self.FK__Candidate__RefBa__59063A47">
+      <End Role="BatchMaster" EntitySet="BatchMaster" />
+      <End Role="CandidateBatchMaster" EntitySet="CandidateBatchMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Candidate__RefCa__49C3F6B7" Association="Self.FK__Candidate__RefCa__49C3F6B7">
+      <End Role="StatusMaster" EntitySet="StatusMaster" />
+      <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Candidate__RefCa__4F7CD00D" Association="Self.FK__Candidate__RefCa__4F7CD00D">
+      <End Role="CandidateMaster" EntitySet="CandidateMaster" />
+      <End Role="CandidateCourseMaster" EntitySet="CandidateCourseMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Candidate__RefCa__5812160E" Association="Self.FK__Candidate__RefCa__5812160E">
+      <End Role="CandidateCourseMaster" EntitySet="CandidateCourseMaster" />
+      <End Role="CandidateBatchMaster" EntitySet="CandidateBatchMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Candidate__RefCo__5070F446" Association="Self.FK__Candidate__RefCo__5070F446">
+      <End Role="CourseMaster" EntitySet="CourseMaster" />
+      <End Role="CandidateCourseMaster" EntitySet="CandidateCourseMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ExpertMas__RefLo__3F466844" Association="Self.FK__ExpertMas__RefLo__3F466844">
+      <End Role="LocationMaster" EntitySet="LocationMaster" />
+      <End Role="ExpertMaster" EntitySet="ExpertMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SessionMa__RefBa__5BE2A6F2" Association="Self.FK__SessionMa__RefBa__5BE2A6F2">
+      <End Role="BatchMaster" EntitySet="BatchMaster" />
+      <End Role="SessionMaster" EntitySet="SessionMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TaskMaste__RefEx__60A75C0F" Association="Self.FK__TaskMaste__RefEx__60A75C0F">
+      <End Role="ExpertMaster" EntitySet="ExpertMaster" />
+      <End Role="TaskMaster" EntitySet="TaskMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TaskMaste__RefTa__619B8048" Association="Self.FK__TaskMaste__RefTa__619B8048">
+      <End Role="TaskTitleMaster" EntitySet="TaskTitleMaster" />
+      <End Role="TaskMaster" EntitySet="TaskMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TechExper__RefEx__4316F928" Association="Self.FK__TechExper__RefEx__4316F928">
+      <End Role="ExpertMaster" EntitySet="ExpertMaster" />
+      <End Role="TechExpertMaster" EntitySet="TechExpertMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TechExper__RefTe__4222D4EF" Association="Self.FK__TechExper__RefTe__4222D4EF">
+      <End Role="TechMaster" EntitySet="TechMaster" />
+      <End Role="TechExpertMaster" EntitySet="TechExpertMaster" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,155 @@
+﻿
+<div class="row">
+    <div class="col-md-12">
+
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#menu1">Menu 1</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#menu2">Menu 2</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content border mb-3">
+            <div id="home" class="tab-pane active">
+                <br>
+                <h3>Expert's Batch</h3>
+
+                <div class="row">
+                    <!-- column -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- title -->
+                                <div class="d-md-flex align-items-center">
+                                    <div>
+                                        <h4 class="card-title">
+                                            Expert Batch Overview
+                                        </h4>
+                                        <h5 class="card-subtitle">
+                                        </h5>
+                                    </div>
+
+                                </div>
+                                <!-- title -->
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table v-middle dtnew">
+                                    <thead>
+                                        <tr class="bg-light">
+                                            <th class="border-top-0">Expert Name</th>
+                                            <th class="border-top-0">Email Id</th>
+                                            <th class="border-top-0">Mobile Number</th>
+                                            <th class="border-top-0">Total Batch</th>
+                                            <th class="border-top-0">Actions</th>
+                                            @*<th class="border-top-0">Sales</th>
+                                                <th class="border-top-0">Earnings</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody id="expertOverView">
+
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <div class="m-r-10"><a class="btn btn-circle btn-info text-white">EA</a></div>
+                                                    <div class="">
+                                                        <h4 class="m-b-0 font-16">Elite Admin</h4>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>Single Use</td>
+                                            <td>John Doe</td>
+                                            <td>
+                                                <label class="label label-danger">Angular</label>
+                                            </td>
+                                            <td>46</td>
+                                            <td>356</td>
+                                            <td>
+                                                <h5 class="m-b-0">$2850.06</h5>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- #region name -->
+                    <script>
+    //expertOverView
+    getExpertOverView();
+    function getExpertOverView()
+    {
+        $.get("@Url.Action("getExperts","HomeManage")", null, function (data) {
+            var innerhtml = "";
+            $.each(data, function (ind, v) {
+                var exp = v.ExpertName.toString()[0];
+                //alert(exp);
+                innerhtml += `<tr>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="m-r-10"><a class="btn btn-circle btn-info text-white">${exp}</a></div>
+                                    <div class="">
+                                        <h4 class="m-b-0 font-16">${v.ExpertName}</h4>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>${v.ExpertEmailid}</td>
+                            <td>${v.ExpertMobile}</td>
+
+                            <td>${v.TotalBatch}</td>
+
+                            <td>
+                                <h5 class="m-b-0">Actions</h5>
+                            </td>
+                        </tr>`;
+
+            });
+            //alert(innerhtml);
+            $("#expertOverView").html(innerhtml);
+            $(".dtnew").DataTable();
+
+        });
+    }
+                    </script>
+                    <!-- #endregion -->
+                </div>
+
+
+            </div>
+            <div id="menu1" class="container tab-pane fade">
+                <br>
+                <h3>Menu 1</h3>
+                <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            </div>
+            <div id="menu2" class="container tab-pane fade">
+                <br>
+                <h3>Menu 2</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            </div>
+        </div>
+        <p class="act"><b>Active Tab</b>: <span></span></p>
+        <p class="prev"><b>Previous Tab</b>: <span></span></p>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".nav-tabs a").click(function () {
+            $(this).tab('show');
+        });
+        $('.nav-tabs a').on('shown.bs.tab', function (event) {
+            var x = $(event.target).text();         // active tab
+            var y = $(event.relatedTarget).text();  // previous tab
+            $(".act span").text(x);
+            $(".prev span").text(y);
+        });
+    });
+</script>
+

@@ -1,0 +1,85 @@
+﻿@model IEnumerable<DashReportingTool.Models.TaskMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table dttable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskDone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaskDetails)
+            </th>
+            <th>
+                Estimate Time/Taken Time
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.TaskTitleMaster.TaskTitle)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskDate)
+                </td>
+                <td>
+
+
+
+                    @{
+                        if (item.TaskDone)
+                        {
+                            <span class="label label-rounded text-danger">Done</span>
+                        }
+                        else
+                        {
+                            <input type="checkbox" id="isCompleted" onchange="StatusChanged(@item.TaskId)" />
+                        }
+
+                    }
+
+
+                    <script>
+                    function StatusChanged(tid) {
+                        $.post("@Url.Action("StatusChanged","jsonApi",new { @area = "Manage"})", { id: tid }, function (result) {
+                            //$("span").html(result);
+                        });
+                    }
+                    </script>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskDetails)
+                </td>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.EstimateTime) Mins. / @item.TimeTaken Mins.
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaskTitleMaster.TaskTitle)
+                </td>
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.TaskId }) |
+                    @Html.ActionLink("Details", "Details", new { id=item.TaskId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.TaskId })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

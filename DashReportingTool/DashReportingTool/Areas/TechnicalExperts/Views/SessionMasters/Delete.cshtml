@@ -1,0 +1,65 @@
+﻿@model DashReportingTool.Models.SessionMaster
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SessionMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionTopic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionTopic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresentCandidates)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresentCandidates)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BatchMaster.BatchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BatchMaster.BatchName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

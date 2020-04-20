@@ -1,0 +1,97 @@
+﻿@model DashReportingTool.Models.TaskMaster
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TaskMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskDetails)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskDetails)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstimateTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstimateTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskStartTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskStartTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskEndTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskEndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeTaken)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeTaken)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ExpertMaster.ExpertName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ExpertMaster.ExpertName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaskTitleMaster.TaskTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaskTitleMaster.TaskTitle)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

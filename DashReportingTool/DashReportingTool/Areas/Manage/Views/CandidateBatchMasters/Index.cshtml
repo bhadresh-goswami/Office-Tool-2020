@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DashReportingTool.Models.CandidateBatchMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.BatchMaster.BatchName)
+        </th>
+        <th>
+
+            Details
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BatchMaster.BatchName)
+            </td>
+            <td>
+                @{
+                    string str = item.CandidateCourseMaster.CandidateMaster.CandidateName + " " + item.CandidateCourseMaster.CourseMaster.CourseTitle;
+                }
+                @str
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CBId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CBId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CBId })
+            </td>
+        </tr>
+    }
+
+</table>

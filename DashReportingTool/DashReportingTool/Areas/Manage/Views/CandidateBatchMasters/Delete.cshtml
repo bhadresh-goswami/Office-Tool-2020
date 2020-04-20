@@ -1,0 +1,41 @@
+﻿@model DashReportingTool.Models.CandidateBatchMaster
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CandidateBatchMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.BatchMaster.BatchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BatchMaster.BatchName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CandidateCourseMaster.CCId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CandidateCourseMaster.CCId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

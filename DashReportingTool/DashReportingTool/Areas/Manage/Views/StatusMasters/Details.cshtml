@@ -1,0 +1,27 @@
+﻿@model DashReportingTool.Models.StatusMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StatusMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StatusTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StatusTitle)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StatusId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

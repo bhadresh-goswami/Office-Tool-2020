@@ -1,0 +1,59 @@
+﻿@model DashReportingTool.Models.SessionMaster
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>SessionMaster</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionTopic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionTopic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SessionDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SessionDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PresentCandidates)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PresentCandidates)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BatchMaster.BatchName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BatchMaster.BatchName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SessionId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

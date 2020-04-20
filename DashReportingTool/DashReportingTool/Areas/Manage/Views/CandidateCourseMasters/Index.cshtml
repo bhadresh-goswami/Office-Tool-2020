@@ -1,0 +1,40 @@
+﻿@model IEnumerable<DashReportingTool.Models.CandidateCourseMaster>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CandidateMaster.CandidateName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CourseMaster.CourseTitle)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CandidateMaster.CandidateName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseMaster.CourseTitle)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.CCId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.CCId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.CCId })
+        </td>
+    </tr>
+}
+
+</table>

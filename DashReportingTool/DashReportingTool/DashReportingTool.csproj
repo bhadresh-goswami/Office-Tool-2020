@@ -1,0 +1,759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4528FBFF-7A21-4466-AD08-A0E50547CF98}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DashReportingTool</RootNamespace>
+    <AssemblyName>DashReportingTool</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44320</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
+    <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
+    <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageAreaRegistration.cs" />
+    <Compile Include="Areas\HelpPage\HelpPageConfigurationExtensions.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\CollectionModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ComplexTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\DictionaryModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\EnumValueDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\IModelDocumentationProvider.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\KeyValuePairModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelDescriptionGenerator.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameAttribute.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ModelNameHelper.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterAnnotation.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\ParameterDescription.cs" />
+    <Compile Include="Areas\HelpPage\ModelDescriptions\SimpleTypeModelDescription.cs" />
+    <Compile Include="Areas\HelpPage\Models\HelpPageApiModel.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\HelpPageSampleKey.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ImageSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\InvalidSample.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\ObjectGenerator.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
+    <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
+    <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Areas\Manage\Controllers\BatchMastersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CandidateBatchMastersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CandidateCourseMastersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CandidateMastersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\CourseMastersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\ExpertMastersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\HomeManageController.cs" />
+    <Compile Include="Areas\Manage\Controllers\jsonApiController.cs" />
+    <Compile Include="Areas\Manage\Controllers\LocationMastersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\StatusMastersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\TechExpertMastersController.cs" />
+    <Compile Include="Areas\Manage\Controllers\TechMastersController.cs" />
+    <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
+    <Compile Include="Areas\TeamLead\Controllers\AssignTaskMastersController.cs" />
+    <Compile Include="Areas\TeamLead\TeamLeadAreaRegistration.cs" />
+    <Compile Include="Areas\TechnicalExperts\Controllers\BatchesController.cs" />
+    <Compile Include="Areas\TechnicalExperts\Controllers\SessionMastersController.cs" />
+    <Compile Include="Areas\TechnicalExperts\Controllers\TaskMastersController.cs" />
+    <Compile Include="Areas\TechnicalExperts\Controllers\TaskTitleMastersController.cs" />
+    <Compile Include="Areas\TechnicalExperts\TechnicalExpertsAreaRegistration.cs" />
+    <Compile Include="Areas\User\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\User\UserAreaRegistration.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BatchMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CandidateBatchMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CandidateCourseMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CandidateMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CourseMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dbReporting.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbReporting.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dbReporting.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dbReporting.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbReporting.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ExpertMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LocationMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\SessionMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StatusMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaskMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TaskTitleMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TechExpertMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TechMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\assets\images\custom-select.png" />
+    <Content Include="Content\assets\images\favicon.png" />
+    <Content Include="Content\assets\images\logo-icon.png" />
+    <Content Include="Content\assets\images\logo-light-icon.png" />
+    <Content Include="Content\assets\images\logo-light-text.png" />
+    <Content Include="Content\assets\images\logo-text.png" />
+    <Content Include="Content\assets\images\users\1-old.jpg" />
+    <Content Include="Content\assets\images\users\1.jpg" />
+    <Content Include="Content\assets\images\users\1.png" />
+    <Content Include="Content\assets\images\users\2.jpg" />
+    <Content Include="Content\assets\images\users\2.png" />
+    <Content Include="Content\assets\images\users\3.jpg" />
+    <Content Include="Content\assets\images\users\3.png" />
+    <Content Include="Content\assets\images\users\4.jpg" />
+    <Content Include="Content\assets\images\users\5.jpg" />
+    <Content Include="Content\assets\images\users\6.jpg" />
+    <Content Include="Content\assets\images\users\7.jpg" />
+    <Content Include="Content\assets\images\users\8.jpg" />
+    <Content Include="Content\assets\images\users\agent.jpg" />
+    <Content Include="Content\assets\images\users\agent2.jpg" />
+    <Content Include="Content\assets\images\users\d1.jpg" />
+    <Content Include="Content\assets\images\users\d2.jpg" />
+    <Content Include="Content\assets\images\users\d3.jpg" />
+    <Content Include="Content\assets\images\users\d4.jpg" />
+    <Content Include="Content\assets\images\users\d5.jpg" />
+    <Content Include="Content\assets\images\users\profile.png" />
+    <Content Include="Content\assets\images\YCZH.gif" />
+    <Content Include="Content\assets\libs\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <Content Include="Content\assets\libs\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <Content Include="Content\assets\libs\bootstrap\dist\css\bootstrap.min.css" />
+    <Content Include="Content\assets\libs\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <Content Include="Content\assets\libs\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="Content\assets\libs\chartist-plugin-tooltips\dist\chartist-plugin-tooltip.css" />
+    <Content Include="Content\assets\libs\chartist-plugin-tooltips\dist\chartist-plugin-tooltip.min.js" />
+    <Content Include="Content\assets\libs\chartist\dist\chartist.min.css" />
+    <Content Include="Content\assets\libs\chartist\dist\chartist.min.js" />
+    <Content Include="Content\assets\libs\jquery\dist\core.js" />
+    <Content Include="Content\assets\libs\jquery\dist\jquery.min.js" />
+    <Content Include="Content\assets\libs\jquery\dist\jquery.slim.min.js" />
+    <Content Include="Content\assets\libs\perfect-scrollbar\dist\css\perfect-scrollbar.min.css" />
+    <Content Include="Content\assets\libs\perfect-scrollbar\dist\js\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Content\assets\libs\perfect-scrollbar\dist\js\perfect-scrollbar.min.js" />
+    <Content Include="Content\assets\libs\perfect-scrollbar\dist\perfect-scrollbar.common.js" />
+    <Content Include="Content\assets\libs\perfect-scrollbar\dist\perfect-scrollbar.esm.js" />
+    <Content Include="Content\assets\libs\perfect-scrollbar\dist\perfect-scrollbar.jquery.min.js" />
+    <Content Include="Content\assets\libs\perfect-scrollbar\dist\perfect-scrollbar.min.js" />
+    <Content Include="Content\assets\libs\popper.js\dist\esm\popper-utils.min.js" />
+    <Content Include="Content\assets\libs\popper.js\dist\esm\popper.min.js" />
+    <Content Include="Content\assets\libs\popper.js\dist\popper-utils.min.js" />
+    <Content Include="Content\assets\libs\popper.js\dist\popper.min.js" />
+    <Content Include="Content\assets\libs\popper.js\dist\umd\popper-utils.min.js" />
+    <Content Include="Content\assets\libs\popper.js\dist\umd\popper.min.js" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fa-brands.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fa-brands.min.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fa-regular.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fa-regular.min.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fa-solid.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fa-solid.min.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fontawesome-all.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fontawesome-all.min.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fontawesome.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\css\fontawesome.min.css" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-brands-400.svg" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-regular-400.svg" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\css\material-design-iconic-font.css" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\css\material-design-iconic-font.min.css" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\css\materialdesignicons.min.css" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.svg" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.svg" />
+    <Content Include="Content\dist\css\icons\themify-icons\fonts\themify.svg" />
+    <Content Include="Content\dist\css\icons\themify-icons\ie7\ie7.css" />
+    <Content Include="Content\dist\css\icons\themify-icons\ie7\ie7.js" />
+    <Content Include="Content\dist\css\icons\themify-icons\themify-icons.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\css\weather-icons-core.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\css\weather-icons-variables.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\css\weather-icons-wind.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\css\weather-icons-wind.min.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\css\weather-icons.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\css\weather-icons.min.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\fonts\weathericons-regular-webfont.svg" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\css\variables-beaufort.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\css\variables-day.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\css\variables-direction.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\css\variables-misc.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\css\variables-moon.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\css\variables-neutral.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\css\variables-night.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\css\variables-time.css" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\css\variables-wind-names.css" />
+    <Content Include="Content\dist\css\style.css" />
+    <Content Include="Content\dist\css\style.min.css" />
+    <Content Include="Content\dist\js\app-style-switcher.js" />
+    <Content Include="Content\dist\js\custom.js" />
+    <Content Include="Content\dist\js\pages\dashboards\dashboard1.js" />
+    <Content Include="Content\dist\js\sidebarmenu.js" />
+    <Content Include="Content\dist\js\waves.js" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\timepicker\wickedpicker.min.css" />
+    <Content Include="Content\timepicker\wickedpicker.min.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Models\dbReporting.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>dbReporting.Context.cs</LastGenOutput>
+      <DependentUpon>dbReporting.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\dbReporting.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>dbReporting.edmx</DependentUpon>
+      <LastGenOutput>dbReporting.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\HelpPage\Views\Web.config" />
+    <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Index.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\TextSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\SimpleTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Samples.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\Parameters.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ModelDescriptionLink.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\KeyValuePairModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\InvalidSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ImageSample.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\EnumTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\DictionaryModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ComplexTypeModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
+    <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <EntityDeploy Include="Models\dbReporting.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbReporting.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\dbReporting.edmx.diagram">
+      <DependentUpon>dbReporting.edmx</DependentUpon>
+    </Content>
+    <Content Include="Content\dist\css\icons\font-awesome\less\fa-brands.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\fa-regular.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\fa-solid.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\fontawesome.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_animated.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_bordered-pulled.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_core.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_fixed-width.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_icons.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_larger.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_list.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_mixins.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_rotated-flipped.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_screen-reader.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_stacked.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\less\_variables.less" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\fa-brands.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\fa-regular.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\fa-solid.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\fontawesome.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_animated.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_core.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_fixed-width.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_icons.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_larger.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_list.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_mixins.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_screen-reader.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_stacked.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\scss\_variables.scss" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\dist\css\icons\font-awesome\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.eot" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.ttf" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.woff" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\Material-Design-Iconic-Font.woff2" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.eot" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.ttf" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.woff" />
+    <Content Include="Content\dist\css\icons\material-design-iconic-font\fonts\materialdesignicons-webfont.woff2" />
+    <Content Include="Content\dist\css\icons\themify-icons\fonts\themify.eot" />
+    <Content Include="Content\dist\css\icons\themify-icons\fonts\themify.ttf" />
+    <Content Include="Content\dist\css\icons\themify-icons\fonts\themify.woff" />
+    <Content Include="Content\dist\css\icons\themify-icons\themify-icons.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\fonts\weathericons-regular-webfont.eot" />
+    <Content Include="Content\dist\css\icons\weather-icons\fonts\weathericons-regular-webfont.ttf" />
+    <Content Include="Content\dist\css\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
+    <Content Include="Content\dist\css\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-beaufort.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-day.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-direction.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-misc.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-moon-aliases.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-moon.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-neutral.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-night.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-time.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-wind-aliases.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-wind-degrees.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-classes\classes-wind.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-variables\variables-beaufort.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-variables\variables-day.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-variables\variables-direction.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-variables\variables-misc.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-variables\variables-moon.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-variables\variables-neutral.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-variables\variables-night.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-variables\variables-time.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\icon-variables\variables-wind-names.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\mappings\wi-forecast-io.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\mappings\wi-owm.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\mappings\wi-wmo4680.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\mappings\wi-yahoo.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\weather-icons-classes.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\weather-icons-core.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\weather-icons-variables.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\weather-icons-wind.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\weather-icons-wind.min.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\weather-icons.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\less\weather-icons.min.less" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-beaufort.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-day.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-direction.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-misc.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-moon-aliases.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-moon.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-neutral.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-night.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-time.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-wind-aliases.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-wind-degrees.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-classes\classes-wind.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-variables\variables-beaufort.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-variables\variables-day.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-variables\variables-direction.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-variables\variables-misc.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-variables\variables-moon.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-variables\variables-neutral.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-variables\variables-night.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-variables\variables-time.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\icon-variables\variables-wind-names.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\mappings\wi-forecast-io.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\mappings\wi-owm.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\mappings\wi-wmo4680.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\mappings\wi-yahoo.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\weather-icons-classes.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\weather-icons-core.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\weather-icons-variables.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\weather-icons-wind.min.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\weather-icons-wind.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\weather-icons.min.scss" />
+    <Content Include="Content\dist\css\icons\weather-icons\sass\weather-icons.scss" />
+    <Content Include="Areas\User\Views\web.config" />
+    <Content Include="Areas\User\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\web.config" />
+    <Content Include="Areas\Manage\Views\LocationMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\LocationMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\LocationMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\LocationMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\LocationMasters\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\ExpertMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\ExpertMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\ExpertMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\ExpertMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\ExpertMasters\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\TechMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\TechMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\TechMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\TechMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\TechMasters\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\TechExpertMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\TechExpertMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\TechExpertMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\TechExpertMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\TechExpertMasters\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\CourseMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\CourseMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\CourseMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\CourseMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\CourseMasters\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateMasters\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateCourseMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateCourseMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateCourseMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateCourseMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateCourseMasters\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\BatchMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\BatchMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\BatchMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\BatchMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\BatchMasters\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateBatchMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateBatchMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateBatchMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateBatchMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\CandidateBatchMasters\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\HomeManage\Index.cshtml" />
+    <Content Include="Areas\Manage\Views\HomeManage\Main.cshtml" />
+    <Content Include="Areas\Manage\Views\StatusMasters\Create.cshtml" />
+    <Content Include="Areas\Manage\Views\StatusMasters\Delete.cshtml" />
+    <Content Include="Areas\Manage\Views\StatusMasters\Details.cshtml" />
+    <Content Include="Areas\Manage\Views\StatusMasters\Edit.cshtml" />
+    <Content Include="Areas\Manage\Views\StatusMasters\Index.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\web.config" />
+    <Content Include="Areas\TechnicalExperts\Views\Batches\Index.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\SessionMasters\Create.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\SessionMasters\Delete.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\SessionMasters\Details.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\SessionMasters\Edit.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\SessionMasters\Index.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskMasters\Create.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskMasters\Delete.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskMasters\Details.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskMasters\Edit.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskMasters\Index.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskTitleMasters\Create.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskTitleMasters\Delete.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskTitleMasters\Details.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskTitleMasters\Edit.cshtml" />
+    <Content Include="Areas\TechnicalExperts\Views\TaskTitleMasters\Index.cshtml" />
+    <Content Include="Areas\User\Views\Dashboard\adminView.cshtml" />
+    <Content Include="Areas\TeamLead\Views\web.config" />
+    <Content Include="Areas\TeamLead\Views\AssignTaskMasters\Create.cshtml" />
+    <Content Include="Areas\TeamLead\Views\AssignTaskMasters\Delete.cshtml" />
+    <Content Include="Areas\TeamLead\Views\AssignTaskMasters\Details.cshtml" />
+    <Content Include="Areas\TeamLead\Views\AssignTaskMasters\Edit.cshtml" />
+    <Content Include="Areas\TeamLead\Views\AssignTaskMasters\Index.cshtml" />
+    <Content Include="Areas\User\Views\Dashboard\TeamLeadIndex.cshtml" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Areas\HelpPage\Views\_ViewStart.cshtml" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_adminMenu.cshtml" />
+    <Content Include="Views\Shared\_defaultLayout.cshtml" />
+    <Content Include="Views\Shared\_displayMessage.cshtml" />
+    <Content Include="Views\Shared\_footer.cshtml" />
+    <Content Include="Views\Shared\_header.cshtml" />
+    <Content Include="Views\Authentication\Login.cshtml" />
+    <Content Include="Views\Shared\_showOverView.cshtml" />
+    <Content Include="Views\Shared\_techExpertMenu.cshtml" />
+    <Content Include="Views\Shared\_tlMEnu.cshtml" />
+    <Content Include="Views\Shared\_sideFeeds.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Manage\Data\" />
+    <Folder Include="Areas\Manage\Views\jsonApi\" />
+    <Folder Include="Areas\Manage\Views\Shared\" />
+    <Folder Include="Areas\TeamLead\Data\" />
+    <Folder Include="Areas\TeamLead\Views\Shared\" />
+    <Folder Include="Areas\TechnicalExperts\Data\" />
+    <Folder Include="Areas\TechnicalExperts\Views\Shared\" />
+    <Folder Include="Areas\User\Data\" />
+    <Folder Include="Areas\User\Views\Shared\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap-theme.css.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54737</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44320/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
