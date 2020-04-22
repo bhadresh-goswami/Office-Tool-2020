@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -349,6 +352,30 @@ on b.BatchId equals s.RefBatchTitle
             return Json(dict, JsonRequestBehavior.AllowGet);
 
         }
+
+        public JsonResult getTaskList(int id, int uid)
+        {
+            var list = db.TaskMasters.Include(a => a.ExpertMaster).Include(a=>a.StatusMaster).Where(a=>a.RefExpertName == uid && a.RefStatusTitle==id).OrderByDescending(a=>a.TaskDate).ToList();
+            return Json(list.Select(a=>new { 
+                a.AssignedTask,
+                DeadLine = new DateTime(((DateTime)a.DeadLine).Ticks).ToString("MM/dd/yyyy"),
+                a.EstimateTime,
+                TaskBy= a.ExpertMaster.ExpertName,
+                a.ExpertMaster1.ExpertName,
+                a.IsStartedTask,
+                a.StatusMaster.StatusTitle,
+                TaskDate = new DateTime(a.TaskDate.Ticks).ToString("MM/dd/yyyy"),
+                a.TaskDetails,
+                a.TaskDone,
+                TaskEndTime = new DateTime(a.TaskEndTime.Value.Ticks).ToString("hh:mm tt"),
+                a.TaskId,
+                TaskStartTime = new DateTime(a.TaskStartTime.Value.Ticks).ToString("hh:mm tt"),
+                a.TaskTitleMaster.TaskTitle,
+                a.TimeTaken
+            
+            }),JsonRequestBehavior.AllowGet);
+        }
+
 
     }
 }

@@ -70,6 +70,17 @@
     <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="LocationName" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
+  <EntityType Name="LoginLogMaster">
+    <Key>
+      <PropertyRef Name="logid" />
+    </Key>
+    <Property Name="logid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="login" Type="time" Precision="7" />
+    <Property Name="logout" Type="time" Precision="7" />
+    <Property Name="logdate" Type="date" />
+    <Property Name="expertId" Type="int" Nullable="false" />
+    <Property Name="status" Type="varchar(max)" />
+  </EntityType>
   <EntityType Name="SessionMaster">
     <Key>
       <PropertyRef Name="SessionId" />
@@ -227,6 +238,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__LoginLogM__exper__66603565">
+    <End Role="ExpertMaster" Type="Self.ExpertMaster" Multiplicity="1" />
+    <End Role="LoginLogMaster" Type="Self.LoginLogMaster" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExpertMaster">
+        <PropertyRef Name="ExpertId" />
+      </Principal>
+      <Dependent Role="LoginLogMaster">
+        <PropertyRef Name="expertId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__SessionMa__RefBa__5BE2A6F2">
     <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="1" />
     <End Role="SessionMaster" Type="Self.SessionMaster" Multiplicity="*" />
@@ -319,6 +342,7 @@
     <EntitySet Name="CourseMaster" EntityType="Self.CourseMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ExpertMaster" EntityType="Self.ExpertMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LocationMaster" EntityType="Self.LocationMaster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoginLogMaster" EntityType="Self.LoginLogMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SessionMaster" EntityType="Self.SessionMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StatusMaster" EntityType="Self.StatusMaster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaskMaster" EntityType="Self.TaskMaster" Schema="dbo" store:Type="Tables" />
@@ -356,6 +380,10 @@
     <AssociationSet Name="FK__ExpertMas__RefLo__3F466844" Association="Self.FK__ExpertMas__RefLo__3F466844">
       <End Role="LocationMaster" EntitySet="LocationMaster" />
       <End Role="ExpertMaster" EntitySet="ExpertMaster" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LoginLogM__exper__66603565" Association="Self.FK__LoginLogM__exper__66603565">
+      <End Role="ExpertMaster" EntitySet="ExpertMaster" />
+      <End Role="LoginLogMaster" EntitySet="LoginLogMaster" />
     </AssociationSet>
     <AssociationSet Name="FK__SessionMa__RefBa__5BE2A6F2" Association="Self.FK__SessionMa__RefBa__5BE2A6F2">
       <End Role="BatchMaster" EntitySet="BatchMaster" />

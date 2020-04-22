@@ -75,6 +75,17 @@
           <Property Name="LocationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="LocationName" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="LoginLogMaster">
+          <Key>
+            <PropertyRef Name="logid" />
+          </Key>
+          <Property Name="logid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="login" Type="time" Precision="7" />
+          <Property Name="logout" Type="time" Precision="7" />
+          <Property Name="logdate" Type="date" />
+          <Property Name="expertId" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="SessionMaster">
           <Key>
             <PropertyRef Name="SessionId" />
@@ -232,6 +243,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__LoginLogM__exper__66603565">
+          <End Role="ExpertMaster" Type="Self.ExpertMaster" Multiplicity="1" />
+          <End Role="LoginLogMaster" Type="Self.LoginLogMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpertMaster">
+              <PropertyRef Name="ExpertId" />
+            </Principal>
+            <Dependent Role="LoginLogMaster">
+              <PropertyRef Name="expertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__SessionMa__RefBa__5BE2A6F2">
           <End Role="BatchMaster" Type="Self.BatchMaster" Multiplicity="1" />
           <End Role="SessionMaster" Type="Self.SessionMaster" Multiplicity="*" />
@@ -324,6 +347,7 @@
           <EntitySet Name="CourseMaster" EntityType="Self.CourseMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExpertMaster" EntityType="Self.ExpertMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LocationMaster" EntityType="Self.LocationMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginLogMaster" EntityType="Self.LoginLogMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SessionMaster" EntityType="Self.SessionMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StatusMaster" EntityType="Self.StatusMaster" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaskMaster" EntityType="Self.TaskMaster" Schema="dbo" store:Type="Tables" />
@@ -361,6 +385,10 @@
           <AssociationSet Name="FK__ExpertMas__RefLo__3F466844" Association="Self.FK__ExpertMas__RefLo__3F466844">
             <End Role="LocationMaster" EntitySet="LocationMaster" />
             <End Role="ExpertMaster" EntitySet="ExpertMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LoginLogM__exper__66603565" Association="Self.FK__LoginLogM__exper__66603565">
+            <End Role="ExpertMaster" EntitySet="ExpertMaster" />
+            <End Role="LoginLogMaster" EntitySet="LoginLogMaster" />
           </AssociationSet>
           <AssociationSet Name="FK__SessionMa__RefBa__5BE2A6F2" Association="Self.FK__SessionMa__RefBa__5BE2A6F2">
             <End Role="BatchMaster" EntitySet="BatchMaster" />
@@ -456,6 +484,7 @@
           <NavigationProperty Name="BatchMasters" Relationship="dbReportingModel.FK__BatchMast__RefEx__5441852A" FromRole="ExpertMaster" ToRole="BatchMaster" />
           <NavigationProperty Name="TaskMasters" Relationship="dbReportingModel.FK__TaskMaste__RefAs__628FA481" FromRole="ExpertMaster" ToRole="TaskMaster" />
           <NavigationProperty Name="TaskMasters1" Relationship="dbReportingModel.FK__TaskMaste__RefEx__60A75C0F" FromRole="ExpertMaster" ToRole="TaskMaster" />
+          <NavigationProperty Name="LoginLogMasters" Relationship="dbReportingModel.FK__LoginLogM__exper__66603565" FromRole="ExpertMaster" ToRole="LoginLogMaster" />
           </EntityType>
         <EntityType Name="LocationMaster">
           <Key>
@@ -664,6 +693,11 @@
             <End Role="TaskTitleMaster" EntitySet="TaskTitleMasters" />
             <End Role="TaskMaster" EntitySet="TaskMasters" />
           </AssociationSet>
+          <EntitySet Name="LoginLogMasters" EntityType="dbReportingModel.LoginLogMaster" />
+          <AssociationSet Name="FK__LoginLogM__exper__66603565" Association="dbReportingModel.FK__LoginLogM__exper__66603565">
+            <End Role="ExpertMaster" EntitySet="ExpertMasters" />
+            <End Role="LoginLogMaster" EntitySet="LoginLogMasters" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="BatchMaster">
           <Key>
@@ -808,6 +842,30 @@
             </Principal>
             <Dependent Role="TaskMaster">
               <PropertyRef Name="RefTaskTitle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LoginLogMaster">
+          <Key>
+            <PropertyRef Name="logid" />
+          </Key>
+          <Property Name="logid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="login" Type="Time" Precision="7" />
+          <Property Name="logout" Type="Time" Precision="7" />
+          <Property Name="logdate" Type="DateTime" Precision="0" />
+          <Property Name="expertId" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ExpertMaster" Relationship="dbReportingModel.FK__LoginLogM__exper__66603565" FromRole="LoginLogMaster" ToRole="ExpertMaster" />
+        </EntityType>
+        <Association Name="FK__LoginLogM__exper__66603565">
+          <End Type="dbReportingModel.ExpertMaster" Role="ExpertMaster" Multiplicity="1" />
+          <End Type="dbReportingModel.LoginLogMaster" Role="LoginLogMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExpertMaster">
+              <PropertyRef Name="ExpertId" />
+            </Principal>
+            <Dependent Role="LoginLogMaster">
+              <PropertyRef Name="expertId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -958,6 +1016,18 @@
                 <ScalarProperty Name="TaskDone" ColumnName="TaskDone" />
                 <ScalarProperty Name="TaskDate" ColumnName="TaskDate" />
                 <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginLogMasters">
+            <EntityTypeMapping TypeName="dbReportingModel.LoginLogMaster">
+              <MappingFragment StoreEntitySet="LoginLogMaster">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="expertId" ColumnName="expertId" />
+                <ScalarProperty Name="logdate" ColumnName="logdate" />
+                <ScalarProperty Name="logout" ColumnName="logout" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="logid" ColumnName="logid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

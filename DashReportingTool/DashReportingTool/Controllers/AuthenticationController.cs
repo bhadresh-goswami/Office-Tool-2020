@@ -13,6 +13,7 @@ namespace DashReportingTool.Controllers
         // GET: Authentication
         public ActionResult Login()
         {
+           // db.Database.Create();
             LoginModel login = new LoginModel();
             if(Request.Cookies["login"]!=null && Session["UserId"] == null)
             {
@@ -22,7 +23,13 @@ namespace DashReportingTool.Controllers
                 Session["UserId"] = id;
                 Session["UserType"] = login.Role;
                 ViewBag.msg = "You are already Login!";
-
+                var log = new LoginLogMaster();
+                log.expertId = id;
+                log.logdate = DateTime.Now.Date;
+                log.login = DateTime.Now.TimeOfDay;
+                log.status = "Auto Login because of not active for 10 min";
+                db.LoginLogMasters.Add(log);
+                db.SaveChanges();
                 return RedirectToAction("Index", "Dashboard", new { @area = "User" });
 
             }
@@ -49,6 +56,14 @@ namespace DashReportingTool.Controllers
                     Session["UserId"] = expert.ExpertId;
                     Session["UserType"] = expert.Designation;
                     ViewBag.msg = "Login Successfuly Done!";
+                    var log = new LoginLogMaster();
+                    log.expertId = expert.ExpertId;
+                    log.logdate = DateTime.Now.Date;
+                    log.login = DateTime.Now.TimeOfDay;
+                    log.status = "Login";
+                    db.LoginLogMasters.Add(log);
+                    db.SaveChanges();
+                    Session.Timeout = 10;
                     return RedirectToAction("Index", "Dashboard", new { @area = "User" });
                 }
 
@@ -63,6 +78,7 @@ namespace DashReportingTool.Controllers
 
         public ActionResult LogOut()
         {
+            int id = int.Parse(Session["UserId"].ToString());
             Response.ClearHeaders();
             Response.AddHeader("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
             Response.AddHeader("Pragma", "no-cache");
@@ -75,6 +91,15 @@ namespace DashReportingTool.Controllers
             }
             Request.Cookies.Remove("login");
             Session.Abandon();
+
+            var log = new LoginLogMaster();
+            log.expertId = id;
+            log.logdate = DateTime.Now.Date;
+            log.logout = DateTime.Now.TimeOfDay;
+            log.status = "LogOut";
+            db.LoginLogMasters.Add(log);
+            db.SaveChanges();
+
             return RedirectToAction("Login");
         }
     }

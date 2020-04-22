@@ -175,6 +175,8 @@
     <Compile Include="Areas\Manage\Controllers\TechExpertMastersController.cs" />
     <Compile Include="Areas\Manage\Controllers\TechMastersController.cs" />
     <Compile Include="Areas\Manage\ManageAreaRegistration.cs" />
+    <Compile Include="Areas\Reporting\Controllers\ReportsController.cs" />
+    <Compile Include="Areas\Reporting\ReportingAreaRegistration.cs" />
     <Compile Include="Areas\TeamLead\Controllers\AssignTaskMastersController.cs" />
     <Compile Include="Areas\TeamLead\TeamLeadAreaRegistration.cs" />
     <Compile Include="Areas\TechnicalExperts\Controllers\BatchesController.cs" />
@@ -224,6 +226,9 @@
       <DependentUpon>dbReporting.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LocationMaster.cs">
+      <DependentUpon>dbReporting.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoginLogMaster.cs">
       <DependentUpon>dbReporting.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LoginModel.cs" />
@@ -638,6 +643,10 @@
     <Content Include="Areas\TeamLead\Views\AssignTaskMasters\Edit.cshtml" />
     <Content Include="Areas\TeamLead\Views\AssignTaskMasters\Index.cshtml" />
     <Content Include="Areas\User\Views\Dashboard\TeamLeadIndex.cshtml" />
+    <Content Include="Areas\User\Views\Dashboard\adminView - Copy.cshtml" />
+    <Content Include="Areas\Reporting\Views\web.config" />
+    <Content Include="Areas\Reporting\Views\Reports\Index.cshtml" />
+    <Content Include="Areas\Reporting\Views\Reports\LoginDetails.cshtml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -680,6 +689,8 @@
     <Folder Include="Areas\Manage\Data\" />
     <Folder Include="Areas\Manage\Views\jsonApi\" />
     <Folder Include="Areas\Manage\Views\Shared\" />
+    <Folder Include="Areas\Reporting\Data\" />
+    <Folder Include="Areas\Reporting\Views\Shared\" />
     <Folder Include="Areas\TeamLead\Data\" />
     <Folder Include="Areas\TeamLead\Views\Shared\" />
     <Folder Include="Areas\TechnicalExperts\Data\" />

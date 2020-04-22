@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<DashReportingTool.Models.CandidateMaster>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Candidates";
     Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
 }
 
-<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table dttable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.CandidateName)
@@ -42,8 +41,8 @@
             @Html.DisplayFor(modelItem => item.StatusMaster.StatusTitle)
         </td>
         <td>
-            <a href="@Url.Action("Create","CandidateCourseMasters",new { @area="Manage"})?id=@item.CandidateId" class="btn btn-dark">Add Course</a>
-            <a href="">Add Batch</a>
+            <a href="@Url.Action("Create","CandidateCourseMasters",new { @area="Manage"})?id=@item.CandidateId">Add Course</a> |
+            @*<a href="">Add Batch</a>*@
             @Html.ActionLink("Edit", "Edit", new { id = item.CandidateId }) |
             @Html.ActionLink("Details", "Details", new { id = item.CandidateId }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.CandidateId })

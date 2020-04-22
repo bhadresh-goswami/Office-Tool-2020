@@ -145,5 +145,17 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="LoginLogMasters">
+      <EntityTypeMapping TypeName="dbReportingModel.LoginLogMaster">
+        <MappingFragment StoreEntitySet="LoginLogMaster">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="expertId" ColumnName="expertId" />
+          <ScalarProperty Name="logdate" ColumnName="logdate" />
+          <ScalarProperty Name="logout" ColumnName="logout" />
+          <ScalarProperty Name="login" ColumnName="login" />
+          <ScalarProperty Name="logid" ColumnName="logid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -5,7 +5,6 @@
     Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
 }
 
-<h2>Create</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -48,7 +47,7 @@
         vars.push(hash[0]);
         vars[hash[0]] = hash[1];
     }
-    alert(vars["id"]);
+    //alert(vars["id"]);
     if (vars["id"] != undefined) {
         $("#RefCandidateTitle").val(vars["id"]);
     }

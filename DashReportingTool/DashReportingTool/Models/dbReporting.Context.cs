@@ -38,5 +38,6 @@ namespace DashReportingTool.Models
         public virtual DbSet<BatchMaster> BatchMasters { get; set; }
         public virtual DbSet<TaskTitleMaster> TaskTitleMasters { get; set; }
         public virtual DbSet<TaskMaster> TaskMasters { get; set; }
+        public virtual DbSet<LoginLogMaster> LoginLogMasters { get; set; }
     }
 }

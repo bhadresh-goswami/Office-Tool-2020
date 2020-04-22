@@ -30,10 +30,10 @@ namespace DashReportingTool.Areas.User.Controllers
 
             var tasks = db.TaskMasters.Where(a => a.RefExpertName == id).OrderByDescending(a => a.TaskDate).OrderByDescending(a => a.TaskStartTime).ToList();
             var pendingTask = tasks.Where(a => a.RefStatusTitle == 4 || a.RefStatusTitle == 2);
-            var d = db.TaskMasters.Where(a=>a.RefExpertName == id);
+            var d = db.TaskMasters.Where(a => a.RefExpertName == id);
             var completedTask = d.ToList().Where(a => a.TaskDone && a.TaskDate.Date == DateTime.Now.Date);
 
-            var assignedTask = db.TaskMasters.Where(a => a.RefExpertName == id && a.AssignedTask==true && !a.TaskDone);
+            var assignedTask = db.TaskMasters.Where(a => a.RefExpertName == id && a.AssignedTask == true && !a.TaskDone);
 
             ViewBag.PT = pendingTask.ToList();
             ViewBag.CT = completedTask.ToList();
@@ -42,12 +42,12 @@ namespace DashReportingTool.Areas.User.Controllers
             return View(tasks);
         }
 
-        
+
 
 
         public ActionResult TeamLeadIndex()
         {
-          
+
             int id = int.Parse(Session["UserId"].ToString());
 
             var tasks = db.TaskMasters.Where(a => a.RefExpertName == id && a.AssignedTask == null).OrderByDescending(a => a.TaskDate).OrderByDescending(a => a.TaskStartTime).ToList();
@@ -64,19 +64,37 @@ namespace DashReportingTool.Areas.User.Controllers
         }
         public ActionResult adminView()
         {
-            List<Dictionary<string, List<TaskMaster>>> list = new List<Dictionary<string, List<TaskMaster>>>();
+            List<TaskMaster> tlist = db.TaskMasters.ToList();
+            //    .Where(a =>
+            //(a.StatusMaster.StatusId == 2
+            //|| a.StatusMaster.StatusId == 3
+            //|| a.StatusMaster.StatusId == 6)).ToList();
 
-            var expertList = db.ExpertMasters.ToList().OrderBy(a => a.ExpertName);
+            Dictionary<string, List<TaskMaster>> list = new Dictionary<string, List<TaskMaster>>();
 
-
-            foreach (var item in expertList)
+            foreach (var item in db.ExpertMasters.ToList())
             {
-                var data = db.TaskMasters.Where(a => a.RefExpertName == item.ExpertId);
-                Dictionary<string, List<TaskMaster>> expertData = new Dictionary<string, List<TaskMaster>>();
-
-                expertData[item.ExpertName] = data.ToList();
-                list.Add(expertData);
+                var d = tlist.Where(a => a.ExpertMaster1.ExpertId == item.ExpertId).ToList();
+                if(d.Count==0)
+                {
+                    continue;
+                }
+                list.Add(item.ExpertName, d);
             }
+
+            //List<Dictionary<string, List<TaskMaster>>> list = new List<Dictionary<string, List<TaskMaster>>>();
+
+            //var expertList = db.ExpertMasters.ToList().OrderBy(a => a.ExpertName);
+
+
+            //foreach (var item in expertList)
+            //{
+            //    var data = db.TaskMasters.Where(a => a.RefExpertName == item.ExpertId);
+            //    Dictionary<string, List<TaskMaster>> expertData = new Dictionary<string, List<TaskMaster>>();
+
+            //    expertData[item.ExpertName] = data.ToList();
+            //    list.Add(expertData);
+            //}
 
             return View(list);
         }

@@ -1,0 +1,140 @@
+﻿@model List<Dictionary<string, List<DashReportingTool.Models.TaskMaster>>>
+    @using DashReportingTool.Models
+@{
+    ViewBag.Title = "adminView";
+    Layout = "~/Views/Shared/_defaultLayout.cshtml";
+    int di = 0;
+}
+
+<h2>Work Show</h2>
+<style>
+
+    .table tr {
+        cursor: pointer;
+    }
+
+    .table {
+        background-color: #fff !important;
+    }
+
+    .hedding h1 {
+        color: #fff;
+        font-size: 25px;
+    }
+
+    .main-section {
+        margin-top: 120px;
+    }
+
+    .hiddenRow {
+        padding: 0 4px !important;
+        background-color: #eeeeee;
+        font-size: 13px;
+    }
+
+    .accordian-body span {
+        color: #a2a2a2 !important;
+    }
+</style>
+<table class="table" style="border-collapse:collapse;">
+    <thead>
+        <tr>
+            <th>Expert Name</th>
+            <th>Report Date</th>
+            <th>Total Task</th>
+            <th>Total Hrs Spend</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var expertList in Model)
+        {
+            var keys = expertList.Keys;
+            <tr data-toggle="collapse" data-target="#demo_@di" class="accordion-toggle">
+                <td>@keys.ToList()[0] </td>
+                <td>@DateTime.Now.ToString("M/dd/yyyy")</td>
+                <td>
+                    @expertList[keys.ToList()[0]].Count
+                </td>
+                <td>
+
+                    @{
+                        int minutes = 0;
+                        string k = keys.ToList()[0];
+                        for (int i = 0; i < expertList[k].Count; i++)
+                        {
+                            if(expertList[k][i].RefStatusTitle == 3)
+                            {
+                                continue;
+                            }
+                            minutes += int.Parse(expertList[k][i].TimeTaken.ToString());
+                        }
+                        double hours = (minutes - minutes % 60) / 60;
+                        string hrs = hours + ":" + (minutes - hours * 60);
+                    }
+                    <span class="badge-cyan"> @hrs</span>
+                </td>
+                <td><a class="btn btn-primary" href="https://www.google.com/"><i class="icon-search icon-white"></i></a></td>
+            </tr>
+
+            <tr class="p">
+                <td colspan="5" class="hiddenRow">
+                    <div class="accordian-body collapse p-3" id="demo_@di">
+                        <div class="row">
+                            <table style="width:100%" class="table table-responsive-sm" dttable>
+                                <thead>
+                                    <tr><th>Status</th>
+                                        <th>Task Title</th>
+                                        <th>Start Time/ End Time</th>
+                                        <th>Estimate Time/ Spend Time</th>
+                                        <th style="width:30%">Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in expertList[k])
+                                    {
+                                        <tr>
+                                            <td class="badge badge-dark">
+                                            @{ 
+                                                var db = new dbReportingEntities();
+                                                var s = db.StatusMasters.SingleOrDefault(a=>a.StatusId == item.RefStatusTitle);
+                                                if(s==null)
+                                                {
+                                                    <span>No Set</span>
+                                                }
+                                                else
+                                                {
+                                                    @s.StatusTitle
+                                                }
+                                            }
+                                            
+                                            </td>
+                                            <td>@item.TaskTitleMaster.TaskTitle</td>
+                                            <td>@item.TaskStartTime / @item.TaskEndTime</td>
+                                            <td>@item.EstimateTime / @item.TimeTaken</td>
+                                            <td>@item.TaskDetails</td>
+                                        </tr>
+                                        @*<div class="col-md-6" style="border-radius:5px; border:1px outset black;padding:5px">
+                <label style="font-weight:bold">Task:</label> @item.TaskTitleMaster.TaskTitle<br />
+                <label style="font-weight:bold">Estimate/Spend:</label> @item.EstimateTime / @item.TimeTaken<br />
+                <label style="font-weight:bold">Start/End:</label> @item.TaskStartTime / @item.TaskEndTime<br />
+            </div>*@
+                                    }
+                                </tbody>
+                                </table>
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            di = di + 1;
+        }
+    </tbody>
+</table>
+
+<script>
+    $('.accordion-toggle').click(function () {
+        $('.hiddenRow').hide();
+        $(this).next('tr').find('.hiddenRow').show();
+    });
+</script>

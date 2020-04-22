@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Over View";
+   
     Layout = "~/Views/Shared/_defaultLayout.cshtml";
 }
 
@@ -68,9 +68,14 @@
 
 <div class="topnav" id="myTopnav">
     <a href="@Url.Action("Index","ExpertMasters",new {@area="Manage" })">Experts</a>
+    <a href="@Url.Action("Index","TechMasters",new {@area="Manage" })">Technology</a>
+    <a href="@Url.Action("Index","TechExpertMasters",new {@area="Manage" })">Experts Technology</a>
     <a href="@Url.Action("Index","CourseMasters",new {@area="Manage" })">Courses</a>
     <a href="@Url.Action("Index","CandidateMasters",new {@area="Manage" })">Candidates</a>
     <a href="@Url.Action("Index","BatchMasters",new {@area="Manage" })">Batches</a>
+    <a href="@Url.Action("Index","CandidateCourseMasters",new {@area="Manage" })">Candidate Course</a>
+    <a href="@Url.Action("Index","CandidateBatchMasters",new {@area="Manage" })">Assing Batches</a>
+    <a href="@Url.Action("Index","StatusMasters",new {@area="Manage" })">Status</a>
     <a href="javascript:void(0);" class="icon" onclick="myFunction()">
         <i class="fa fa-bars"></i>
     </a>
@@ -94,8 +99,8 @@
             <div class="card-body">
                 <div class="d-md-flex align-items-center">
                     <div>
-                        <h4 class="card-title">Sales Summary</h4>
-                        <h5 class="card-subtitle">Overview of Latest Month</h5>
+                        <h4 class="card-title">@ViewBag.Title</h4>
+                        @*<h5 class="card-subtitle">Overview of Latest Month</h5>*@
                     </div>
 
                 </div>
@@ -112,7 +117,7 @@
 
 </div>
 
-@Html.Partial("_showOverView")
+@*@Html.Partial("_showOverView")*@
 
 
 

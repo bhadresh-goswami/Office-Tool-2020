@@ -1,16 +1,15 @@
 ﻿@model IEnumerable<DashReportingTool.Models.StatusMaster>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Status List";
     Layout = "~/Areas/Manage/Views/HomeManage/Index.cshtml";
 }
 
-<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table dttable">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.StatusTitle)

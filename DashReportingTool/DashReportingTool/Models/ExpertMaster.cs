@@ -21,6 +21,7 @@ namespace DashReportingTool.Models
             this.BatchMasters = new HashSet<BatchMaster>();
             this.TaskMasters = new HashSet<TaskMaster>();
             this.TaskMasters1 = new HashSet<TaskMaster>();
+            this.LoginLogMasters = new HashSet<LoginLogMaster>();
         }
     
         public int ExpertId { get; set; }
@@ -40,5 +41,7 @@ namespace DashReportingTool.Models
         public virtual ICollection<TaskMaster> TaskMasters { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TaskMaster> TaskMasters1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LoginLogMaster> LoginLogMasters { get; set; }
     }
 }

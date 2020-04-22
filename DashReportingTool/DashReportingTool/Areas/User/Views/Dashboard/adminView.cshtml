@@ -1,140 +1,165 @@
-﻿@model List<Dictionary<string, List<DashReportingTool.Models.TaskMaster>>>
-    @using DashReportingTool.Models
+﻿@model Dictionary<string, List<DashReportingTool.Models.TaskMaster>>
+@using DashReportingTool.Models
 @{
-    ViewBag.Title = "adminView";
+    ViewBag.Title = "Running Task";
     Layout = "~/Views/Shared/_defaultLayout.cshtml";
     int di = 0;
 }
 
-<h2>Work Show</h2>
-<style>
 
-    .table tr {
-        cursor: pointer;
-    }
 
-    .table {
-        background-color: #fff !important;
-    }
-
-    .hedding h1 {
-        color: #fff;
-        font-size: 25px;
-    }
-
-    .main-section {
-        margin-top: 120px;
-    }
-
-    .hiddenRow {
-        padding: 0 4px !important;
-        background-color: #eeeeee;
-        font-size: 13px;
-    }
-
-    .accordian-body span {
-        color: #a2a2a2 !important;
-    }
-</style>
-<table class="table" style="border-collapse:collapse;">
+<table class="table dttable table-responsive-lg">
     <thead>
         <tr>
-            <th>Expert Name</th>
-            <th>Report Date</th>
-            <th>Total Task</th>
-            <th>Total Hrs Spend</th>
+            <th>
+                Expert Name
+            </th>
+            <th>
+                Running
+            </th>
+            <th>
+                Pending or Hold
+            </th>
+            <th>
+                Hrs Spend (@DateTime.Now.ToShortDateString())
+            </th>
+            @*<th>
+
+                </th>*@
         </tr>
+
     </thead>
+
     <tbody>
-
-        @foreach (var expertList in Model)
+        @foreach (var item in Model)
         {
-            var keys = expertList.Keys;
-            <tr data-toggle="collapse" data-target="#demo_@di" class="accordion-toggle">
-                <td>@keys.ToList()[0] </td>
-                <td>@DateTime.Now.ToString("M/dd/yyyy")</td>
+            var running = Model[item.Key].Where(a => a.RefStatusTitle == 2);
+            var hold = Model[item.Key].Where(a => a.RefStatusTitle == 3);
+            var userid = Model[item.Key][0].RefExpertName;
+            <tr>
                 <td>
-                    @expertList[keys.ToList()[0]].Count
+                    @item.Key
                 </td>
                 <td>
+                    <button class="btn btn-primary" onclick="showList(2,@userid, 'Running')">
+                        @running.ToList().Count
+                        <i class="fa fa-list"></i>
+                    </button>
 
+                </td>
+                <td>
+                    <button class="btn btn-primary" onclick="showList(3,@userid, 'Hold')"> @hold.ToList().Count  <i class="fa fa-list"></i></button>
+
+                </td>
+                <td>
                     @{
-                        int minutes = 0;
-                        string k = keys.ToList()[0];
-                        for (int i = 0; i < expertList[k].Count; i++)
-                        {
-                            if(expertList[k][i].RefStatusTitle == 3)
-                            {
-                                continue;
-                            }
-                            minutes += int.Parse(expertList[k][i].TimeTaken.ToString());
+
+                        var todays = Model[item.Key].Where(a=> a.TaskDone);
+                        var min = 0;
+                        @*<span>@todays.ToList().Count</span>*@
+                        foreach (var itemMin in todays.ToList())
+                        {                            
+                            min += (int) itemMin.TimeTaken;
                         }
-                        double hours = (minutes - minutes % 60) / 60;
-                        string hrs = hours + ":" + (minutes - hours * 60);
-                    }
-                    <span class="badge-cyan"> @hrs</span>
-                </td>
-                <td><a class="btn btn-primary" href="https://www.google.com/"><i class="icon-search icon-white"></i></a></td>
-            </tr>
 
-            <tr class="p">
-                <td colspan="5" class="hiddenRow">
-                    <div class="accordian-body collapse p-3" id="demo_@di">
-                        <div class="row">
-                            <table style="width:100%" class="table table-responsive-sm" dttable>
-                                <thead>
-                                    <tr><th>Status</th>
-                                        <th>Task Title</th>
-                                        <th>Start Time/ End Time</th>
-                                        <th>Estimate Time/ Spend Time</th>
-                                        <th style="width:30%">Details</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach (var item in expertList[k])
-                                    {
-                                        <tr>
-                                            <td class="badge badge-dark">
-                                            @{ 
-                                                var db = new dbReportingEntities();
-                                                var s = db.StatusMasters.SingleOrDefault(a=>a.StatusId == item.RefStatusTitle);
-                                                if(s==null)
-                                                {
-                                                    <span>No Set</span>
-                                                }
-                                                else
-                                                {
-                                                    @s.StatusTitle
-                                                }
-                                            }
-                                            
-                                            </td>
-                                            <td>@item.TaskTitleMaster.TaskTitle</td>
-                                            <td>@item.TaskStartTime / @item.TaskEndTime</td>
-                                            <td>@item.EstimateTime / @item.TimeTaken</td>
-                                            <td>@item.TaskDetails</td>
-                                        </tr>
-                                        @*<div class="col-md-6" style="border-radius:5px; border:1px outset black;padding:5px">
-                <label style="font-weight:bold">Task:</label> @item.TaskTitleMaster.TaskTitle<br />
-                <label style="font-weight:bold">Estimate/Spend:</label> @item.EstimateTime / @item.TimeTaken<br />
-                <label style="font-weight:bold">Start/End:</label> @item.TaskStartTime / @item.TaskEndTime<br />
-            </div>*@
-                                    }
-                                </tbody>
-                                </table>
+                        int hours = (min - min % 60) / 60;
 
-                        </div>
-                    </div>
+                        string hrs  = hours.ToString() + ":" + (min - hours * 60).ToString();
+
+                     }
+                    @hrs
                 </td>
+                @*<td>
+                    </td>*@
             </tr>
-            di = di + 1;
         }
     </tbody>
 </table>
 
+
+<!-- The Modal -->
+<div class="modal" id="showList">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title" id="idtitle">Running Task</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <table class="table dttable table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th>
+                                Assigne By
+                            </th>
+                            <th>
+                                Start Date/End Date
+                            </th>
+                            @*<th>
+                                Estimate/Taken Time
+                            </th>
+                            <th>
+                                Start Time/ End Time
+                            </th>*@
+                            <th>Details</th>
+                            @*<th>
+                                    Task Details
+                                </th>*@
+                        </tr>
+                    </thead>
+                    <tbody id="lst">
+                        <tr>
+                            <td colspan="5" style="text-align:center">
+                                <img src="/Content/assets/images/YCZH.gif" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 <script>
-    $('.accordion-toggle').click(function () {
-        $('.hiddenRow').hide();
-        $(this).next('tr').find('.hiddenRow').show();
-    });
+    function showList(id, userid, str) {
+                    $("#showList").modal();
+
+        $("#idtitle").html(str);
+        $.getJSON("@Url.Action("getTaskList","jsonApi",new { @area = "Manage"})", { id: id, uid:userid }, function (data) {
+
+            var htmlB = "";
+            $.each(data, function (ind, val) {
+
+                htmlB += `
+                    <tr>
+                        <td>${val.TaskBy}</td>
+                        <td>${val.TaskDate} <br> ${val.DeadLine}</td>
+                        <td style="width:40%">
+                        <div class='float-left'> Estimate (${val.EstimateTime})/ Taken (${val.TimeTaken})</div>
+                        <div class='float-right'>${val.TaskStartTime}/${val.TaskEndTime}</div>
+                                
+                            <hr>
+                                <b>${val.TaskTitle}</b><br>${val.TaskDetails}
+                            <hr>
+                        </td>
+                    </tr>
+                `;
+
+
+            });
+
+            $("#lst").html(htmlB);
+        });
+
+    }
 </script>
